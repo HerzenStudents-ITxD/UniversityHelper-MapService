@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
+
+  <ItemGroup>
+    <Folder Include="Db\Interfaces\" />
+    <Folder Include="Models\Interfaces\" />
+    <Folder Include="Responses\Interfaces\" />
+  </ItemGroup>
+
+</Project>

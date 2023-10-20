@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\MapService.Data.Provider\MapService.Data.Provider.csproj" />
+    <ProjectReference Include="..\MapService.Models.Db\MapService.Models.Db.csproj" />
+  </ItemGroup>
+
+</Project>

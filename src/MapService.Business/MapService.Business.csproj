@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\MapService.Data\MapService.Data.csproj" />
+    <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Addition\Interfaces\" />
+    <Folder Include="Commands\Label\Interfaces\" />
+    <Folder Include="Commands\ObjectName\Interfaces\" />
+    <Folder Include="Commands\Photo\Interfaces\" />
+    <Folder Include="Commands\Relation\Interfaces\" />
+    <Folder Include="Commands\UnityPosition\Interfaces\" />
+  </ItemGroup>
+
+</Project>
