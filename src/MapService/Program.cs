@@ -21,15 +21,15 @@ namespace MapService
             builder.Services.AddSwaggerGen();
 
             // START DANGER ZZZZZZZZZZZZZZZZZZZZONE
-            builder.Services.AddHttpContextAccessor();
+            //builder.Services.AddHttpContextAccessor();
 
-            string dbConnStr = "Server=127.0.0.1,20340;User=sa;Password=Map_1234;Database=MapDB;";
-            builder.Services.AddDbContext<MapServiceDbContext>(options =>
-            {
-                options.UseSqlServer(dbConnStr);
-            });
+            //string dbConnStr = "Server=127.0.0.1,20340;User=sa;Password=Map_1234;Database=MapDB;";
+            //builder.Services.AddDbContext<MapServiceDbContext>(options =>
+            //{
+            //    options.UseSqlServer(dbConnStr);
+            //});
 
-            builder.Services.AddBusinessObjects();
+            //builder.Services.AddBusinessObjects();
 
             var app = builder.Build();
             // END DANGER ZZZZZZZZZZZZZZZZZZZZONE
