@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,29 +15,27 @@ namespace HerzenHelper.MapService.Models.Db
         public const string TableName = "Locations";
 
         public Guid Id { get; set; }
-        public Guid CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         public DateTime CreatedAtUtc { get; set; }
         public bool IsActive { get; set; }
+        public bool IsSuggested { get; set; }
+        public bool InDevelop { get; set; }
 
-
-        [IgnoreParse]
-        public DbLocation? ParentLocation { get; set; }
-        [IgnoreParse]
-        public ICollection<DbLocationUnityPosition> UnityPositions { get; set; }
-        [IgnoreParse]
         public ICollection<DbLocationAddition> Additions { get; set; }
-        [IgnoreParse]
+        public ICollection<DbLocationLabel> Labels { get; set; }
         public ICollection<DbLocationPhoto> Photos { get; set; }
-        [IgnoreParse]
+        public ICollection<DbLocationUnityObjectName> UnityObjectNames { get; set; }
+
+        public DbLocation? ParentLocation { get; set; }
         public DbLocationUnityPosition? UnityPosition { get; set; }
-        [IgnoreParse]
-        public DbLocationUnityObjectName? UnityObjectName { get; set; }
+        public DbServiceVersion ServiceVersion { get; set; }
 
         public DbLocation()
         {
-            UnityPositions = new HashSet<DbLocationUnityPosition>();
             Additions = new HashSet<DbLocationAddition>();
+            Labels = new HashSet<DbLocationLabel>();
             Photos = new HashSet<DbLocationPhoto>();
+            UnityObjectNames = new HashSet<DbLocationUnityObjectName>();
         }
     }
 
@@ -45,19 +44,34 @@ namespace HerzenHelper.MapService.Models.Db
         public void Configure(EntityTypeBuilder<DbLocation> builder)
         {
             builder
-                .HasKey(p => p.Id);
+                .ToTable(DbLocation.TableName);
 
             builder
-                .HasMany(u => u.UnityPositions)
-                .WithOne(ua => ua.Location);
+                .HasKey(x => x.Id);
+
 
             builder
-                .HasMany(u => u.Additions)
-                .WithOne(ua => ua.Location);
+                .HasMany(x => x.Additions)
+                .WithOne(x => x.Location);
 
             builder
-                .HasMany(u => u.Photos)
-                .WithOne(ua => ua.Location);
+                .HasMany(x => x.Labels)
+                .WithOne(x => x.Location);
+
+            builder
+                .HasMany(x => x.Photos)
+                .WithOne(x => x.Location);
+
+
+            builder
+                .HasMany(x => x.UnityObjectNames)
+                .WithOne(x => x.Location);
+
+
+            builder
+                .HasOne(x => x.UnityPosition)
+                .WithOne(x => x.Location)
+                .HasForeignKey<DbLocationUnityPosition>(x => x.LocationId);
         }
     }
 }

@@ -8,4 +8,9 @@
     <Folder Include="Responses\Interfaces\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MapService.Models.Db\MapService.Models.Db.csproj" />
+    <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
+  </ItemGroup>
+
 </Project>

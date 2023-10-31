@@ -4,16 +4,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MapService.Data\MapService.Data.csproj" />
+    <ProjectReference Include="..\MapService.Mappers\MapService.Mappers.csproj" />
     <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Addition\Interfaces\" />
-    <Folder Include="Commands\Label\Interfaces\" />
-    <Folder Include="Commands\ObjectName\Interfaces\" />
-    <Folder Include="Commands\Photo\Interfaces\" />
-    <Folder Include="Commands\Relation\Interfaces\" />
-    <Folder Include="Commands\UnityPosition\Interfaces\" />
+    <Folder Include="Commands\LocationAddition\Interfaces\" />
+    <Folder Include="Commands\LocationLabel\Interfaces\" />
+    <Folder Include="Commands\LocationUnityObjectName\Interfaces\" />
+    <Folder Include="Commands\LocationPhoto\Interfaces\" />
+    <Folder Include="Commands\LocationUnityPositionRelation\Interfaces\" />
+    <Folder Include="Commands\LocationUnityPosition\Interfaces\" />
   </ItemGroup>
 
 </Project>

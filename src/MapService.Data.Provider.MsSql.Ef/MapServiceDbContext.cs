@@ -13,9 +13,10 @@ namespace HerzenHelper.MapService.Data.Provider.MsSql.Ef
         public DbSet<DbLocationAddition> LocationAdditions { get; set; }
         public DbSet<DbLocationLabel> LocationLabels { get; set; }
         public DbSet<DbLocationPhoto> LocationPhotos { get; set; }
-        public DbSet<DbLocationUnityPosition> LocationUnityPositions { get; set; }
         public DbSet<DbLocationUnityObjectName> LocationUnityObjectName { get; set; }
-        public DbSet<DbRelation> Relations { get; set; }
+        public DbSet<DbLocationUnityPosition> LocationUnityPositions { get; set; }
+        public DbSet<DbLocationUnityPositionRelation> LocationUnityPositionRelations { get; set; }
+        public DbSet<DbServiceVersion> Versions { get; set; }
         public MapServiceDbContext(DbContextOptions<MapServiceDbContext> options) : base(options) { }
 
 

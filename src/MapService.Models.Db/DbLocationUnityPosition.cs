@@ -10,14 +10,20 @@ namespace HerzenHelper.MapService.Models.Db
 {
     public class DbLocationUnityPosition
     {
-        public const string TableName = "LocationUnityPositions";
+        public const string TableName = "UnityPositions";
+
         public Guid Id { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
+        public bool IsSuggested { get; set; }
+        public bool IsActive { get; set; }
+
         public Guid LocationId { get; set; }
         public float X { get; set; }
         public float Y { get; set; }
         public float Z { get; set; }
-        public Guid CreatedBy { get; set; }
-        public DateTime CreatedAtUtc { get; set; }
+
+        public ICollection<DbLocationUnityPositionRelation> Relations { get; set; }
 
         public DbLocation Location { get; set; }
     }
@@ -27,10 +33,19 @@ namespace HerzenHelper.MapService.Models.Db
         public void Configure(EntityTypeBuilder<DbLocationUnityPosition> builder)
         {
             builder
-              .ToTable(DbLocationUnityPosition.TableName);
+                .ToTable(DbLocationUnityPosition.TableName);
 
             builder
-              .HasKey(c => c.Id);
+                .HasKey(c => c.Id);
+
+
+            builder
+                .HasMany(x => x.Relations)
+                .WithOne(x => x.FirstPosition);
+
+            builder
+                .HasMany(x => x.Relations)
+                .WithOne(x => x.SecondPosition);
         }
     }
 }

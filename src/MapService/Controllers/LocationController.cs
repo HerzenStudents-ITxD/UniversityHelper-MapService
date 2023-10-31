@@ -2,20 +2,22 @@
 using HerzenHelper.MapService.Business.Commands.Right.Interfaces;
 using HerzenHelper.MapService.Models.Dto.Models;
 using HerzenHelper.MapService.Models.Dto.Requests;
+using HerzenHelper.MapService.Models.Dto.Requests.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HerzenHelper.MapService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class LocationPositionController : ControllerBase
+    public class LocationController : ControllerBase
     {
-        //[HttpGet("get")]
-        //public async Task<OperationResultResponse<List<LocationPositionInfo>>> Get(
-        //    [FromServices] IGetLocationPositionListCommand command)
-        //{
-        //    return await command.ExecuteAsync();
-        //}
+        [HttpGet("find")]
+        public async Task<OperationResultResponse<List<LocationInfo>>> Get(
+            [FromServices] IFindLocationsCommand command,
+            [FromQuery] FindLocationsFilter filter)
+        {
+            return await command.ExecuteAsync(filter);
+        }
 
         //[HttpPost("create")]
         //public async Task<OperationResultResponse<Guid?>> Post(

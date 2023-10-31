@@ -9,10 +9,14 @@ namespace HerzenHelper.MapService.Models.Db
         public const string TableName = "LocationPhotos";
 
         public Guid Id { get; set; }
-        public Guid LocationId { get; set; }
-        public Guid PhotoId { get; set; }
-        public int Number { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
+        public bool IsSuggested { get; set; }
         public bool IsActive { get; set; }
+
+        public string Content { get; set; }
+        public string Extension { get; set; }
+        public int OrdinalNumber { get; set; }
 
         public DbLocation Location { get; set; }
     }
@@ -22,14 +26,15 @@ namespace HerzenHelper.MapService.Models.Db
         public void Configure(EntityTypeBuilder<DbLocationPhoto> builder)
         {
             builder
-            .ToTable(DbLocationPhoto.TableName);
+                .ToTable(DbLocationPhoto.TableName);
 
             builder
-            .HasKey(c => c.Id);
+                .HasKey(c => c.Id);
+
 
             builder
-            .HasOne(ua => ua.Location)
-            .WithMany(u => u.Photos);
+                .HasOne(x => x.Location)
+                .WithMany(x => x.Photos);
         }
     }
 }

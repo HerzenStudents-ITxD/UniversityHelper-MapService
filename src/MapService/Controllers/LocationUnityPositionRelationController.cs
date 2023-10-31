@@ -8,7 +8,7 @@ namespace HerzenHelper.MapService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RelationController : ControllerBase
+    public class LocationUnityPositionRelationController : ControllerBase
     {
         //[HttpGet("get")]
         //public async Task<OperationResultResponse<List<RelationInfo>>> Get(

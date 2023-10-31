@@ -12,14 +12,15 @@ namespace HerzenHelper.MapService.Models.Db
     public class DbLocationLabel
     {
         public const string TableName = "LocationLabels";
+
         public Guid Id { get; set; }
-        public Guid LocationId { get; set; }
-        public string Locale { get; set; }
-        public string Name { get; set; }
-        public Guid CreatedBy { get; set; }
+        public int CreatedBy { get; set; }
         public DateTime CreatedAtUtc { get; set; }
+        public bool IsSuggested { get; set; }
         public bool IsActive { get; set; }
 
+        public string Locale { get; set; }
+        public string Name { get; set; }
 
         public DbLocation Location { get; set; }
     }
@@ -29,10 +30,15 @@ namespace HerzenHelper.MapService.Models.Db
         public void Configure(EntityTypeBuilder<DbLocationLabel> builder)
         {
             builder
-              .ToTable(DbLocationLabel.TableName);
+                .ToTable(DbLocationLabel.TableName);
 
             builder
-              .HasKey(x => x.Id);
+                .HasKey(x => x.Id);
+
+
+            builder
+                .HasOne(x => x.Location)
+                .WithMany(x => x.Labels);
         }
     }
 }

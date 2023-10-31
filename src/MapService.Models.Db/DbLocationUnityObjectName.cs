@@ -6,14 +6,17 @@ namespace HerzenHelper.MapService.Models.Db
 {
     public class DbLocationUnityObjectName
     {
-        public const string TableName = "LocationUnitySceneNames";
+        public const string TableName = "UnitySceneNames";
 
         public Guid Id { get; set; }
-        public Guid LocationId { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
+        public bool IsSuggested { get; set; }
+        public bool IsActive { get; set; }
+
         public string Locale { get; set; }
         public string ShortLocationName { get; set; }
         public string UnityObjectName { get; set; }
-        public string? SwitchLocation { get; set; }
 
         public DbLocation Location { get; set; }
     }
@@ -23,10 +26,15 @@ namespace HerzenHelper.MapService.Models.Db
         public void Configure(EntityTypeBuilder<DbLocationUnityObjectName> builder)
         {
             builder
-              .ToTable(DbLocationUnityObjectName.TableName);
+                .ToTable(DbLocationUnityObjectName.TableName);
 
             builder
-              .HasKey(c => c.Id);
+                .HasKey(c => c.Id);
+
+
+            builder
+                .HasOne(x => x.Location)
+                .WithMany(x => x.UnityObjectNames);
         }
     }
 }
