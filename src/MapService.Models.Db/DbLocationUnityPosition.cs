@@ -38,15 +38,6 @@ namespace HerzenHelper.MapService.Models.Db
 
             builder
                 .HasKey(c => c.Id);
-
-            // TODO
-            //builder
-            //    .HasMany(x => x.Relations)
-            //    .WithOne(x => x.FirstPosition);
-
-            //builder
-            //    .HasMany(x => x.Relations)
-            //    .WithOne(x => x.SecondPosition);
         }
     }
 }

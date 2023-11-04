@@ -19,7 +19,9 @@ namespace HerzenHelper.MapService.Models.Db
         public bool IsActive { get; set; }
 
         public Guid FirstPositionId { get; set; }
+        public DbLocationUnityPosition FirstPosition { get; set; }
         public Guid SecondPositionId { get; set; }
+        public DbLocationUnityPosition SecondPosition { get; set; }
     }
 
     public class DbLocationUnityPositionRelationConfiguration : IEntityTypeConfiguration<DbLocationUnityPositionRelation>
@@ -30,16 +32,19 @@ namespace HerzenHelper.MapService.Models.Db
                 .ToTable(DbLocationUnityPositionRelation.TableName);
 
             builder
-            .HasKey(c => c.Id);
+                .HasKey(c => c.Id);
 
-            // TODO
-            //builder
-            //    .HasOne(x => x.FirstPosition)
-            //    .WithMany(x => x.Relations);
+            builder
+                .HasOne(ars => ars.FirstPosition)
+                .WithOne()
+                .HasForeignKey<DbLocationUnityPositionRelation>(ars => ars.FirstPositionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //builder
-            //    .HasOne(x => x.SecondPosition)
-            //    .WithMany(x => x.Relations);
+            builder
+                .HasOne(ars => ars.SecondPosition)
+                .WithOne()
+                .HasForeignKey<DbLocationUnityPositionRelation>(ars => ars.SecondPositionId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
