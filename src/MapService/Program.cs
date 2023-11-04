@@ -1,54 +1,60 @@
-﻿
-using HerzenHelper.Core.EFSupport.Helpers;
-using HerzenHelper.Core.Extensions;
-using HerzenHelper.MapService.Data.Provider.MsSql.Ef;
-using Microsoft.EntityFrameworkCore;
-using SixLabors.ImageSharp;
+﻿using HerzenHelper.MapService;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Serilog;
+using System;
 
-namespace MapService
+namespace HerzenHelper.MapService
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var configuration = new ConfigurationBuilder()
+              .AddJsonFile("appsettings.json")
+              .Build();
 
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            // START DANGER ZZZZZZZZZZZZZZZZZZZZONE
-            //builder.Services.AddHttpContextAccessor();
-
-            //string dbConnStr = "Server=127.0.0.1,20340;User=sa;Password=Map_1234;Database=MapDB;";
-            //builder.Services.AddDbContext<MapServiceDbContext>(options =>
-            //{
-            //    options.UseSqlServer(dbConnStr);
-            //});
-
-            //builder.Services.AddBusinessObjects();
-
-            var app = builder.Build();
-            // END DANGER ZZZZZZZZZZZZZZZZZZZZONE
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            string seqServerUrl = Environment.GetEnvironmentVariable("seqServerUrl");
+            if (string.IsNullOrEmpty(seqServerUrl))
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                seqServerUrl = configuration["Serilog:WriteTo:1:Args:serverUrl"];
             }
 
-            app.UseHttpsRedirection();
+            string seqApiKey = Environment.GetEnvironmentVariable("seqApiKey");
+            if (string.IsNullOrEmpty(seqApiKey))
+            {
+                seqApiKey = configuration["Serilog:WriteTo:1:Args:apiKey"];
+            }
 
-            app.UseAuthorization();
+            Log.Logger = new LoggerConfiguration().ReadFrom
+              .Configuration(configuration)
+              .Enrich.WithProperty("Service", "MapService")
+              .WriteTo.Seq(
+                serverUrl: seqServerUrl,
+                apiKey: seqApiKey)
+              .CreateLogger();
 
-
-            app.MapControllers();
-
-            app.Run();
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception exc)
+            {
+                Log.Fatal(exc, "Can not properly start MapService.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+          Host.CreateDefaultBuilder(args)
+            .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
     }
 }

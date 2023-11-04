@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace HerzenHelper.MapService.Models.Db
 {
@@ -17,8 +18,8 @@ namespace HerzenHelper.MapService.Models.Db
         public DateTime CreatedAtUtc { get; set; }
         public bool IsActive { get; set; }
 
-        public DbLocationUnityPosition FirstPosition { get; set; }
-        public DbLocationUnityPosition SecondPosition { get; set; }
+        public Guid FirstPositionId { get; set; }
+        public Guid SecondPositionId { get; set; }
     }
 
     public class DbLocationUnityPositionRelationConfiguration : IEntityTypeConfiguration<DbLocationUnityPositionRelation>
@@ -29,16 +30,16 @@ namespace HerzenHelper.MapService.Models.Db
                 .ToTable(DbLocationUnityPositionRelation.TableName);
 
             builder
-                .HasKey(c => c.Id);
+            .HasKey(c => c.Id);
 
+            // TODO
+            //builder
+            //    .HasOne(x => x.FirstPosition)
+            //    .WithMany(x => x.Relations);
 
-            builder
-                .HasOne(x => x.FirstPosition)
-                .WithMany(x => x.Relations);
-
-            builder
-                .HasOne(x => x.SecondPosition)
-                .WithMany(x => x.Relations);
+            //builder
+            //    .HasOne(x => x.SecondPosition)
+            //    .WithMany(x => x.Relations);
         }
     }
 }

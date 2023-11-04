@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace HerzenHelper.MapService.Models.Db
 {
@@ -38,14 +39,14 @@ namespace HerzenHelper.MapService.Models.Db
             builder
                 .HasKey(c => c.Id);
 
+            // TODO
+            //builder
+            //    .HasMany(x => x.Relations)
+            //    .WithOne(x => x.FirstPosition);
 
-            builder
-                .HasMany(x => x.Relations)
-                .WithOne(x => x.FirstPosition);
-
-            builder
-                .HasMany(x => x.Relations)
-                .WithOne(x => x.SecondPosition);
+            //builder
+            //    .HasMany(x => x.Relations)
+            //    .WithOne(x => x.SecondPosition);
         }
     }
 }
