@@ -1,4 +1,4 @@
-﻿namespace HerzenHelper.MapService.Models.Dto.Requests
+﻿namespace UniversityHelper.MapService.Models.Dto.Requests
 {
     public class UpdateLocationRequest
     {

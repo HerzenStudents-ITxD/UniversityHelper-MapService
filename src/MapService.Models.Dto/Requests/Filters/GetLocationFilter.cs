@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace HerzenHelper.MapService.Models.Dto.Requests.Filters
+namespace UniversityHelper.MapService.Models.Dto.Requests.Filters
 {
     public record GetLocationFilter
     {

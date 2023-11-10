@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace HerzenHelper.MapService.Models.Db
+namespace UniversityHelper.MapService.Models.Db
 {
     public class DbLocationPhoto
     {

@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 using System.Threading.Tasks;
-using HerzenHelper.MapService.Data.Provider;
-using HerzenHelper.MapService.Models.Db;
-using HerzenHelper.Core.EFSupport.Provider;
+using UniversityHelper.MapService.Data.Provider;
+using UniversityHelper.MapService.Models.Db;
+using UniversityHelper.Core.EFSupport.Provider;
 using Microsoft.EntityFrameworkCore;
 
-namespace HerzenHelper.MapService.Data.Provider.MsSql.Ef
+namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef
 {
     public class MapServiceDbContext : DbContext, IDataProvider
     {
@@ -22,7 +22,7 @@ namespace HerzenHelper.MapService.Data.Provider.MsSql.Ef
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.Load("HerzenHelper.MapService.Models.Db"));
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.Load("UniversityHelper.MapService.Models.Db"));
         }
 
         public object MakeEntityDetached(object obj)

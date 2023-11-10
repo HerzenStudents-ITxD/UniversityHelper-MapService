@@ -1,7 +1,7 @@
-﻿using HerzenHelper.Core.Requests;
+﻿using UniversityHelper.Core.Requests;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HerzenHelper.MapService.Models.Dto.Requests.Filters
+namespace UniversityHelper.MapService.Models.Dto.Requests.Filters
 {
     public record FindLocationsFilter : BaseFindFilter
     {

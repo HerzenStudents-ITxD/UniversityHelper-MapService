@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HerzenHelper.MapService.Models.Dto.Models
+namespace UniversityHelper.MapService.Models.Dto.Models
 {
     public record LocationInfo
     {

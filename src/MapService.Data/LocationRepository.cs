@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HerzenHelper.Core.Extensions;
-using HerzenHelper.MapService.Data.Interfaces;
-using HerzenHelper.MapService.Data.Provider;
-using HerzenHelper.MapService.Models.Db;
-using HerzenHelper.MapService.Models.Dto.Requests.Filters;
+using UniversityHelper.Core.Extensions;
+using UniversityHelper.MapService.Data.Interfaces;
+using UniversityHelper.MapService.Data.Provider;
+using UniversityHelper.MapService.Models.Db;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace HerzenHelper.MapService.Data
+namespace UniversityHelper.MapService.Data
 {
     public class LocationRepository : ILocationRepository
     {

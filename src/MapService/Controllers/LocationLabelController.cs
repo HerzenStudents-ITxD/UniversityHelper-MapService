@@ -1,10 +1,10 @@
-﻿using HerzenHelper.Core.Responses;
-using HerzenHelper.MapService.Business.Commands.Right.Interfaces;
-using HerzenHelper.MapService.Models.Dto.Models;
-using HerzenHelper.MapService.Models.Dto.Requests;
+﻿using UniversityHelper.Core.Responses;
+using UniversityHelper.MapService.Business.Commands.Right.Interfaces;
+using UniversityHelper.MapService.Models.Dto.Models;
+using UniversityHelper.MapService.Models.Dto.Requests;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HerzenHelper.MapService.Controllers
+namespace UniversityHelper.MapService.Controllers
 {
     [ApiController]
     [Route("[controller]")]

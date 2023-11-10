@@ -2,17 +2,17 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using HerzenHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
-using HerzenHelper.Core.Helpers.Interfaces;
-using HerzenHelper.Core.Responses;
-using HerzenHelper.MapService.Business.Commands.Right.Interfaces;
-using HerzenHelper.MapService.Data.Interfaces;
-using HerzenHelper.MapService.Mappers.Models.Interfaces;
-using HerzenHelper.MapService.Models.Dto;
-using HerzenHelper.MapService.Models.Dto.Models;
-using HerzenHelper.MapService.Models.Dto.Requests.Filters;
+using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
+using UniversityHelper.Core.Helpers.Interfaces;
+using UniversityHelper.Core.Responses;
+using UniversityHelper.MapService.Business.Commands.Right.Interfaces;
+using UniversityHelper.MapService.Data.Interfaces;
+using UniversityHelper.MapService.Mappers.Models.Interfaces;
+using UniversityHelper.MapService.Models.Dto;
+using UniversityHelper.MapService.Models.Dto.Models;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace HerzenHelper.MapService.Business.Commands.Right
+namespace UniversityHelper.MapService.Business.Commands.Right
 {
     public class FindLocationsCommand : IFindLocationsCommand
     {

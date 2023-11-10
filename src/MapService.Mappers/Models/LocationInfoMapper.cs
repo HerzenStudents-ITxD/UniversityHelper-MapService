@@ -1,8 +1,8 @@
-﻿using HerzenHelper.MapService.Mappers.Models.Interfaces;
-using HerzenHelper.MapService.Models.Db;
-using HerzenHelper.MapService.Models.Dto.Models;
+﻿using UniversityHelper.MapService.Mappers.Models.Interfaces;
+using UniversityHelper.MapService.Models.Db;
+using UniversityHelper.MapService.Models.Dto.Models;
 
-namespace HerzenHelper.MapService.Mappers.Models
+namespace UniversityHelper.MapService.Mappers.Models
 {
     public class LocationInfoMapper : ILocationInfoMapper
     {

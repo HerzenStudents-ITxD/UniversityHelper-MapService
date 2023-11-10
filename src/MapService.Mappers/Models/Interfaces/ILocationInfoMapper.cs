@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HerzenHelper.Core.Attributes;
-using HerzenHelper.MapService.Models.Db;
-using HerzenHelper.MapService.Models.Dto.Models;
+using UniversityHelper.Core.Attributes;
+using UniversityHelper.MapService.Models.Db;
+using UniversityHelper.MapService.Models.Dto.Models;
 
-namespace HerzenHelper.MapService.Mappers.Models.Interfaces
+namespace UniversityHelper.MapService.Mappers.Models.Interfaces
 {
     [AutoInject]
     public interface ILocationInfoMapper

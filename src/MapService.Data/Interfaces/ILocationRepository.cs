@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HerzenHelper.Core.Attributes;
-using HerzenHelper.MapService.Models.Db;
-using HerzenHelper.MapService.Models.Dto.Requests.Filters;
+using UniversityHelper.Core.Attributes;
+using UniversityHelper.MapService.Models.Db;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace HerzenHelper.MapService.Data.Interfaces
+namespace UniversityHelper.MapService.Data.Interfaces
 {
     [AutoInject]
     public interface ILocationRepository

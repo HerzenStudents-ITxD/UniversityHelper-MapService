@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HerzenHelper.MapService.Models.Dto.Requests
+namespace UniversityHelper.MapService.Models.Dto.Requests
 {
     public record CreateLocationRequest
     {

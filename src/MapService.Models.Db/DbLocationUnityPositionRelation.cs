@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
-namespace HerzenHelper.MapService.Models.Db
+namespace UniversityHelper.MapService.Models.Db
 {
     public class DbLocationUnityPositionRelation
     {

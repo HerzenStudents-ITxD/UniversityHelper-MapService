@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HerzenHelper.Core.BrokerSupport.Attributes.ParseEntity;
+using UniversityHelper.Core.BrokerSupport.Attributes.ParseEntity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HerzenHelper.MapService.Models.Db
+namespace UniversityHelper.MapService.Models.Db
 {
     public class DbLocation
     {

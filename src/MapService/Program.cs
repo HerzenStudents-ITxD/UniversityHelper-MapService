@@ -1,19 +1,18 @@
-﻿using HerzenHelper.MapService;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 
-namespace HerzenHelper.MapService
+namespace UniversityHelper.MapService
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json")
-              .Build();
+                .AddJsonFile("appsettings.json")
+                .Build();
 
             string seqServerUrl = Environment.GetEnvironmentVariable("seqServerUrl");
             if (string.IsNullOrEmpty(seqServerUrl))
@@ -28,12 +27,12 @@ namespace HerzenHelper.MapService
             }
 
             Log.Logger = new LoggerConfiguration().ReadFrom
-              .Configuration(configuration)
-              .Enrich.WithProperty("Service", "MapService")
-              .WriteTo.Seq(
-                serverUrl: seqServerUrl,
-                apiKey: seqApiKey)
-              .CreateLogger();
+                .Configuration(configuration)
+                .Enrich.WithProperty("Service", "MapService")
+                .WriteTo.Seq(
+                    serverUrl: seqServerUrl,
+                    apiKey: seqApiKey)
+                .CreateLogger();
 
             try
             {
@@ -50,11 +49,11 @@ namespace HerzenHelper.MapService
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-          Host.CreateDefaultBuilder(args)
-            .UseSerilog()
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+            Host.CreateDefaultBuilder(args)
+                .UseSerilog()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }

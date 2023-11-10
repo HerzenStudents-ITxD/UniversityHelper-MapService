@@ -1,11 +1,11 @@
-﻿using HerzenHelper.Core.Attributes;
-using HerzenHelper.Core.Responses;
-using HerzenHelper.MapService.Models.Dto.Models;
-using HerzenHelper.MapService.Models.Dto.Requests.Filters;
+﻿using UniversityHelper.Core.Attributes;
+using UniversityHelper.Core.Responses;
+using UniversityHelper.MapService.Models.Dto.Models;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HerzenHelper.MapService.Business.Commands.Right.Interfaces
+namespace UniversityHelper.MapService.Business.Commands.Right.Interfaces
 {
     [AutoInject]
     public interface IFindLocationsCommand

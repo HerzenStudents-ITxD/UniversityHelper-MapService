@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HerzenHelper.MapService.Models.Dto.Models
+namespace UniversityHelper.MapService.Models.Dto.Models
 {
     public record UnityObjectNameInfo
     {
