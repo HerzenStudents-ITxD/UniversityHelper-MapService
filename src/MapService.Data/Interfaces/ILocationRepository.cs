@@ -5,19 +5,18 @@ using UniversityHelper.Core.Attributes;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace UniversityHelper.MapService.Data.Interfaces
+namespace UniversityHelper.MapService.Data.Interfaces;
+
+[AutoInject]
+public interface ILocationRepository
 {
-    [AutoInject]
-    public interface ILocationRepository
-    {
-        Task CreateAsync(DbLocation dbLocation);
+  Task CreateAsync(DbLocation dbLocation);
 
-        Task<DbLocation> GetAsync(GetLocationFilter filter);
+  Task<DbLocation> GetAsync(GetLocationFilter filter);
 
-        Task<List<DbLocation>> FindAllAsync(FindLocationsFilter filter);
+  Task<List<DbLocation>> FindAllAsync(FindLocationsFilter filter);
 
-        Task<bool> DoesExistAsync(Guid locationId);
+  Task<bool> DoesExistAsync(Guid locationId);
 
-        Task<bool> EditStatusAsync(Guid locationId, bool isActive);
-    }
+  Task<bool> EditStatusAsync(Guid locationId, bool isActive);
 }

@@ -5,11 +5,10 @@ using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace UniversityHelper.MapService.Business.Commands.Right.Interfaces
+namespace UniversityHelper.MapService.Business.Commands.Right.Interfaces;
+
+[AutoInject]
+public interface IFindLocationsCommand
 {
-    [AutoInject]
-    public interface IFindLocationsCommand
-    {
-        Task<OperationResultResponse<List<LocationInfo>>> ExecuteAsync(FindLocationsFilter filter);
-    }
+  Task<OperationResultResponse<List<LocationInfo>>> ExecuteAsync(FindLocationsFilter filter);
 }

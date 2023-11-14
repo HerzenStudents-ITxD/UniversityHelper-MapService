@@ -7,11 +7,10 @@ using UniversityHelper.Core.Attributes;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Models;
 
-namespace UniversityHelper.MapService.Mappers.Models.Interfaces
+namespace UniversityHelper.MapService.Mappers.Models.Interfaces;
+
+[AutoInject]
+public interface ILocationInfoMapper
 {
-    [AutoInject]
-    public interface ILocationInfoMapper
-    {
-        LocationInfo Map(DbLocation dbLocation);
-    }
+  LocationInfo Map(DbLocation dbLocation);
 }
