@@ -10,37 +10,40 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace UniversityHelper.MapService.Models.Db;
 
-public class DbLocationAddition
+public class DbMap
 {
-  public const string TableName = "LocationAddictions";
+  public const string TableName = "Maps";
 
   public Guid Id { get; set; }
   public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
-  public bool IsSuggested { get; set; }
   public bool IsActive { get; set; }
 
-  public string Locale { get; set; }
-  public string Name { get; set; }
-  public string? Fact { get; set; }
-  public string? Description { get; set; }
+  public Guid UniversityId { get; set; }
+  public Guid FileId { get; set; }
 
-  public DbLocation Location { get; set; }
+
+  public ICollection<DbMapVersion> Versions { get; set; }
+
+  public DbMap()
+  {
+    Versions = new HashSet<DbMapVersion>();
+  }
 }
 
-public class DbLocationAdditionConfiguration : IEntityTypeConfiguration<DbLocationAddition>
+public class DbMapConfiguration : IEntityTypeConfiguration<DbMap>
 {
-  public void Configure(EntityTypeBuilder<DbLocationAddition> builder)
+  public void Configure(EntityTypeBuilder<DbMap> builder)
   {
     builder
-        .ToTable(DbLocationAddition.TableName);
+        .ToTable(DbMap.TableName);
 
     builder
         .HasKey(x => x.Id);
 
 
     builder
-        .HasOne(x => x.Location)
-        .WithMany(x => x.Additions);
+      .HasMany(x => x.Versions)
+      .WithOne(x => x.Map);
   }
 }

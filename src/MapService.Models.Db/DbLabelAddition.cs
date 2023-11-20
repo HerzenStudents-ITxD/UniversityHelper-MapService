@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +10,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace UniversityHelper.MapService.Models.Db;
 
-public class DbLocationLabel
+public class DbLabelAddition
 {
-  public const string TableName = "LocationLabels";
+  public const string TableName = "LabelAddictions";
 
   public Guid Id { get; set; }
-  public int CreatedBy { get; set; }
+  public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
   public bool IsSuggested { get; set; }
   public bool IsActive { get; set; }
@@ -22,22 +23,22 @@ public class DbLocationLabel
   public string Locale { get; set; }
   public string Name { get; set; }
 
-  public DbLocation Location { get; set; }
+  public DbLabel Label { get; set; }
 }
 
-public class DbLocationLabelConfiguration : IEntityTypeConfiguration<DbLocationLabel>
+public class DbLabelAdditionConfiguration : IEntityTypeConfiguration<DbLabelAddition>
 {
-  public void Configure(EntityTypeBuilder<DbLocationLabel> builder)
+  public void Configure(EntityTypeBuilder<DbLabelAddition> builder)
   {
     builder
-        .ToTable(DbLocationLabel.TableName);
+        .ToTable(DbLableAddition.TableName);
 
     builder
         .HasKey(x => x.Id);
 
 
     builder
-        .HasOne(x => x.Location)
-        .WithMany(x => x.Labels);
+        .HasOne(x => x.Label)
+        .WithMany(x => x.Additions);
   }
 }

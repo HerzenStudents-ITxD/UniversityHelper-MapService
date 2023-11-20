@@ -14,18 +14,18 @@ public class DbLocationUnityPosition
   public const string TableName = "UnityPositions";
 
   public Guid Id { get; set; }
-  public int CreatedBy { get; set; }
+  public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
   public bool IsSuggested { get; set; }
   public bool IsActive { get; set; }
 
-  public Guid LocationId { get; set; }
   public float X { get; set; }
   public float Y { get; set; }
   public float Z { get; set; }
 
   public ICollection<DbLocationUnityPositionRelation> Relations { get; set; }
 
+  public Guid LocationId { get; set; }
   public DbLocation Location { get; set; }
 }
 
