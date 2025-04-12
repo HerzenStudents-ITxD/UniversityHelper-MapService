@@ -8,29 +8,29 @@ namespace UniversityHelper.MapService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LocationAdditionController : ControllerBase
+public class PointAdditionController : ControllerBase
 {
   //[HttpGet("get")]
-  //public async Task<OperationResultResponse<List<LocationAdditionInfo>>> Get(
-  //    [FromQuery] Guid locationId,
-  //    [FromServices] IGetLocationLabelListCommand command)
+  //public async Task<OperationResultResponse<List<PointAdditionInfo>>> Get(
+  //    [FromQuery] Guid pointId,
+  //    [FromServices] IGetPointLabelListCommand command)
   //{
-  //    return await command.ExecuteAsync(locationId);
+  //    return await command.ExecuteAsync(pointId);
   //}
 
 
   //[HttpPost("create")]
   //public async Task<OperationResultResponse<Guid?>> Post(
-  //    [FromBody] CreateLocationLabelRequest request,
-  //    [FromServices] ICreateLocationLabelCommand command)
+  //    [FromBody] CreatePointLabelRequest request,
+  //    [FromServices] ICreatePointLabelCommand command)
   //{
   //    return await command.ExecuteAsync(request);
   //}
 
   //[HttpPut("edit")]
   //public async Task<OperationResultResponse<bool>> Edit(
-  //    [FromBody] EditLocationLabelRequest request,
-  //    [FromServices] IEditLocationLabelCommand command)
+  //    [FromBody] EditPointLabelRequest request,
+  //    [FromServices] IEditPointLabelCommand command)
   //{
   //    return await command.ExecuteAsync(request);
   //}

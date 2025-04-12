@@ -18,11 +18,13 @@ public class DbPointType
   public ICollection<DbPointTypeAssociation> Associations { get; set; }
   [IgnoreParse]
   public ICollection<DbPointTypeRectangularParallelepiped> Parallelepipeds { get; set; }
-
+  [IgnoreParse]
+  public ICollection<DbPointTypePoint> Points { get; set; }
   public DbPointType()
   {
     Associations = new HashSet<DbPointTypeAssociation>();
     Parallelepipeds = new HashSet<DbPointTypeRectangularParallelepiped>();
+    Points = new HashSet<DbPointTypePoint>();
   }
 }
 public class DbPointTypeConfiguration : IEntityTypeConfiguration<DbPointType>
@@ -40,7 +42,11 @@ public class DbPointTypeConfiguration : IEntityTypeConfiguration<DbPointType>
         .HasMany(x => x.Associations)
         .WithOne(x => x.PointType);
     builder
-    .HasMany(x => x.Parallelepipeds)
-    .WithOne(x => x.PointType);
+        .HasMany(x => x.Parallelepipeds)
+        .WithOne(x => x.PointType);
+
+    builder
+      .HasMany(x => x.Points)
+      .WithOne(x=> x.PointType);
   }
 }

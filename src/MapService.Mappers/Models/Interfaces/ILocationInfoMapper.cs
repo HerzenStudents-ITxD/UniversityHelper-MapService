@@ -10,7 +10,7 @@ using UniversityHelper.MapService.Models.Dto.Models;
 namespace UniversityHelper.MapService.Mappers.Models.Interfaces;
 
 [AutoInject]
-public interface ILocationInfoMapper
+public interface IPointInfoMapper
 {
-  LocationInfo Map(DbPoint dbLocation);
+  PointInfo Map(DbPoint dbPoint);
 }

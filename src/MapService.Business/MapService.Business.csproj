@@ -9,12 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\LocationAddition\Interfaces\" />
-    <Folder Include="Commands\LocationLabel\Interfaces\" />
-    <Folder Include="Commands\LocationUnityObjectName\Interfaces\" />
-    <Folder Include="Commands\LocationPhoto\Interfaces\" />
-    <Folder Include="Commands\LocationUnityPositionRelation\Interfaces\" />
-    <Folder Include="Commands\LocationUnityPosition\Interfaces\" />
+    <Folder Include="Commands\PointAddition\Interfaces\" />
+    <Folder Include="Commands\PointLabel\Interfaces\" />
+    <Folder Include="Commands\PointUnityObjectName\Interfaces\" />
+    <Folder Include="Commands\PointPhoto\Interfaces\" />
+    <Folder Include="Commands\PointUnityPositionRelation\Interfaces\" />
+    <Folder Include="Commands\PointUnityPosition\Interfaces\" />
   </ItemGroup>
 
 </Project>

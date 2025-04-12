@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityHelper.MapService.Models.Dto.Models;
 
-public record LocationPhotoInfo
+public record PointPhotoInfo
 {
   public Guid Id { get; set; }
   public Guid PhotoId { get; set; }

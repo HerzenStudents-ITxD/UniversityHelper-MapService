@@ -3,10 +3,10 @@ using System;
 
 namespace UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-public record GetLocationFilter
+public record GetPointFilter
 {
-  [FromQuery(Name = "locationId")]
-  public Guid LocationId { get; set; }
+  [FromQuery(Name = "pointId")]
+  public Guid PointId { get; set; }
 
   [FromQuery(Name = "locale")]
   public string Locale { get; set; }

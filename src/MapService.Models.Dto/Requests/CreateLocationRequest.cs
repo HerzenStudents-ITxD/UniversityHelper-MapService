@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UniversityHelper.MapService.Models.Dto.Requests;
 
-public record CreateLocationRequest
+public record CreatePointRequest
 {
   public int CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }

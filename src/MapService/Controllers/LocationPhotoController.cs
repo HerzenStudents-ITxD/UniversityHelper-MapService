@@ -8,28 +8,28 @@ namespace UniversityHelper.MapService.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class LocationPhotoController : ControllerBase
+public class PointPhotoController : ControllerBase
 {
   //[HttpGet("get")]
-  //public async Task<OperationResultResponse<List<LocationPhotoInfo>>> Get(
-  //    [FromQuery] Guid locationId,
-  //    [FromServices] IGetLocationPhotoListCommand command)
+  //public async Task<OperationResultResponse<List<PointPhotoInfo>>> Get(
+  //    [FromQuery] Guid pointId,
+  //    [FromServices] IGetPointPhotoListCommand command)
   //{
-  //    return await command.ExecuteAsync(locationId);
+  //    return await command.ExecuteAsync(pointId);
   //}
 
   //[HttpPost("create")]
   //public async Task<OperationResultResponse<Guid?>> Post(
-  //    [FromBody] CreateLocationPhotoRequest request,
-  //    [FromServices] ICreateLocationPhotoCommand command)
+  //    [FromBody] CreatePointPhotoRequest request,
+  //    [FromServices] ICreatePointPhotoCommand command)
   //{
   //    return await command.ExecuteAsync(request);
   //}
 
   //[HttpPut("edit")]
   //public async Task<OperationResultResponse<Guid?>> Post(
-  //    [FromBody] EditLocationPhotoRequest request,
-  //    [FromServices] IEditLocationPhotoCommand command)
+  //    [FromBody] EditPointPhotoRequest request,
+  //    [FromServices] IEditPointPhotoCommand command)
   //{
   //    return await command.ExecuteAsync(request);
   //}

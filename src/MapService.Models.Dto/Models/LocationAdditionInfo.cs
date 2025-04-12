@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UniversityHelper.MapService.Models.Dto.Models;
 
-public record LocationAdditionInfo
+public record PointAdditionInfo
 {
   public Guid Id { get; set; }
   public string Locale { get; set; }

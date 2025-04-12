@@ -3,7 +3,7 @@ using UniversityHelper.MapService.Models.Dto.Models;
 
 namespace UniversityHelper.MapService.Models.Dto.Responses;
 
-public record LocationResponse
+public record PointResponse
 {
-  public LocationInfo Role { get; set; }
+  public PointInfo Role { get; set; }
 }

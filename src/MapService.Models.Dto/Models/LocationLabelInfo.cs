@@ -2,7 +2,7 @@
 
 namespace UniversityHelper.MapService.Models.Dto.Models;
 
-public record LocationLabelInfo
+public record PointLabelInfo
 {
   public Guid Id { get; set; }
   public Guid RoleId { get; set; }

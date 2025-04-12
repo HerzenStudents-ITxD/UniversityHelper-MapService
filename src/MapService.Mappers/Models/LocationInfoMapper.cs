@@ -4,9 +4,9 @@ using UniversityHelper.MapService.Models.Dto.Models;
 
 namespace UniversityHelper.MapService.Mappers.Models;
 
-public class LocationInfoMapper : ILocationInfoMapper
+public class PointInfoMapper : IPointInfoMapper
 {
-  public LocationInfo Map(DbPoint dbLocation)
+  public PointInfo Map(DbPoint dbPoint)
   {
     throw new NotImplementedException();
   }

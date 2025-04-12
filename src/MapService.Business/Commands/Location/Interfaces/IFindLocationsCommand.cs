@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace UniversityHelper.MapService.Business.Commands.Right.Interfaces;
 
 [AutoInject]
-public interface IFindLocationsCommand
+public interface IFindPointsCommand
 {
-  Task<OperationResultResponse<List<LocationInfo>>> ExecuteAsync(FindLocationsFilter filter);
+  Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(FindPointsFilter filter);
 }

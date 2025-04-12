@@ -8,15 +8,15 @@ using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 namespace UniversityHelper.MapService.Data.Interfaces;
 
 [AutoInject]
-public interface ILocationRepository
+public interface IPointRepository
 {
-  Task CreateAsync(DbPoint dbLocation);
+  Task CreateAsync(DbPoint dbPoint);
 
-  Task<DbPoint> GetAsync(GetLocationFilter filter);
+  Task<DbPoint> GetAsync(GetPointFilter filter);
 
-  Task<List<DbPoint>> FindAllAsync(FindLocationsFilter filter);
+  Task<List<DbPoint>> FindAllAsync(FindPointsFilter filter);
 
-  Task<bool> DoesExistAsync(Guid locationId);
+  Task<bool> DoesExistAsync(Guid pointId);
 
-  Task<bool> EditStatusAsync(Guid locationId, bool isActive);
+  Task<bool> EditStatusAsync(Guid pointId, bool isActive);
 }

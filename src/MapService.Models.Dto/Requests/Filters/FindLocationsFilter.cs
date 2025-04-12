@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-public record FindLocationsFilter : BaseFindFilter
+public record FindPointsFilter : BaseFindFilter
 {
   [FromQuery(Name = "locale")]
   public string Locale { get; set; }

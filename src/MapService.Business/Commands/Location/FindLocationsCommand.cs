@@ -14,16 +14,16 @@ using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
 namespace UniversityHelper.MapService.Business.Commands.Right;
 
-public class FindLocationsCommand : IFindLocationsCommand
+public class FindPointsCommand : IFindPointsCommand
 {
-  private readonly ILocationRepository _repository;
-  private readonly ILocationInfoMapper _mapper;
+  private readonly IPointRepository _repository;
+  private readonly IPointInfoMapper _mapper;
   //private readonly IAccessValidator _accessValidator;
   //private readonly IResponseCreator _responseCreator;
 
-  public FindLocationsCommand(
-  ILocationRepository repository,
-  ILocationInfoMapper mapper//,
+  public FindPointsCommand(
+  IPointRepository repository,
+  IPointInfoMapper mapper//,
                             //IAccessValidator accessValidator,
                             //IResponseCreator responseCreator
       )
@@ -34,12 +34,12 @@ public class FindLocationsCommand : IFindLocationsCommand
     //_responseCreator = responseCreator;
   }
 
-  public async Task<OperationResultResponse<List<LocationInfo>>> ExecuteAsync(FindLocationsFilter filter)
+  public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(FindPointsFilter filter)
   {
     return
         //await _accessValidator.IsAdminAsync() ? 
-        new OperationResultResponse<List<LocationInfo>>(
+        new OperationResultResponse<List<PointInfo>>(
         body: (await _repository.FindAllAsync(filter)).Select(_mapper.Map).ToList());
-    //: _responseCreator.CreateFailureResponse<List<LocationInfo>>(HttpStatusCode.Forbidden);
+    //: _responseCreator.CreateFailureResponse<List<PointInfo>>(HttpStatusCode.Forbidden);
   }
 }

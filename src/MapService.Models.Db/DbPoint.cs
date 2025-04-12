@@ -12,7 +12,7 @@ namespace UniversityHelper.MapService.Models.Db;
 
 public class DbPoint
 {
-  public const string TableName = "Locations";
+  public const string TableName = "Points";
 
   public Guid Id { get; set; }
   public Guid CreatedBy { get; set; }
@@ -33,17 +33,19 @@ public class DbPoint
   public ICollection<DbPointAssociation> Associations { get; set; }
   [IgnoreParse]
   public ICollection<DbPointPhoto> Photos { get; set; }
-
+  [IgnoreParse]
+  public ICollection<DbPointTypePoint> PointTypes { get; set; } 
   public DbPoint()
   {
     Relations = new HashSet<DbRelation>();
     Labels = new HashSet<DbPointLabel>();
     Associations = new HashSet<DbPointAssociation>();
     Photos = new HashSet<DbPointPhoto>();
+    PointTypes = new HashSet<DbPointTypePoint>();
   }
 }
 
-public class DbLocationConfiguration : IEntityTypeConfiguration<DbPoint>
+public class DbPointConfiguration : IEntityTypeConfiguration<DbPoint>
 {
   public void Configure(EntityTypeBuilder<DbPoint> builder)
   {
@@ -69,5 +71,10 @@ public class DbLocationConfiguration : IEntityTypeConfiguration<DbPoint>
     builder
       .HasMany(x => x.Photos)
       .WithOne(x => x.Point);
+    builder
+      .HasMany(p => p.PointTypes)
+      .WithOne(t => t.Point);
+
+
   }
 }

@@ -7,8 +7,4 @@
     <ProjectReference Include="..\MapService.Models.Db\MapService.Models.Db.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
