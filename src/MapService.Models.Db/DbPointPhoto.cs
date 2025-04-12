@@ -4,36 +4,33 @@ using System;
 
 namespace UniversityHelper.MapService.Models.Db;
 
-public class DbLocationPhoto
+public class DbPointPhoto
 {
-  public const string TableName = "LocationPhotos";
+  public const string TableName = "Photos";
 
   public Guid Id { get; set; }
   public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
-  public bool IsSuggested { get; set; }
   public bool IsActive { get; set; }
-
   public string Content { get; set; }
-  public string Extension { get; set; }
   public int OrdinalNumber { get; set; }
 
-  public DbLocation Location { get; set; }
+  public DbPoint Point { get; set; }
 }
 
-public class DbLocationPhotoConfiguration : IEntityTypeConfiguration<DbLocationPhoto>
+public class DbPointPhotoConfiguration : IEntityTypeConfiguration<DbPointPhoto>
 {
-  public void Configure(EntityTypeBuilder<DbLocationPhoto> builder)
+  public void Configure(EntityTypeBuilder<DbPointPhoto> builder)
   {
     builder
-        .ToTable(DbLocationPhoto.TableName);
+        .ToTable(DbPointPhoto.TableName);
 
     builder
         .HasKey(c => c.Id);
 
 
     builder
-        .HasOne(x => x.Location)
+        .HasOne(x => x.Point)
         .WithMany(x => x.Photos);
   }
 }

@@ -26,7 +26,7 @@ public class LocationRepository : ILocationRepository
     //_httpContextAccessor = httpContextAccessor;
   }
 
-  public Task CreateAsync(DbLocation dbLocation)
+  public Task CreateAsync(DbPoint dbLocation)
   {
     if (dbLocation is null)
     {
@@ -37,7 +37,7 @@ public class LocationRepository : ILocationRepository
     return _provider.SaveAsync();
   }
 
-  public async Task<DbLocation> GetAsync(GetLocationFilter filter)
+  public async Task<DbPoint> GetAsync(GetLocationFilter filter)
   {
     return null;
     //return (await
@@ -70,7 +70,7 @@ public class LocationRepository : ILocationRepository
 
   public async Task<bool> EditStatusAsync(Guid locationId, bool isActive)
   {
-    DbLocation location = _provider.Locations.FirstOrDefault(x => x.Id == locationId);
+    DbPoint location = _provider.Locations.FirstOrDefault(x => x.Id == locationId);
 
     if (location is null)
     {
@@ -87,7 +87,7 @@ public class LocationRepository : ILocationRepository
     return true;
   }
 
-  public Task<List<DbLocation>> FindAllAsync(FindLocationsFilter filter)
+  public Task<List<DbPoint>> FindAllAsync(FindLocationsFilter filter)
   {
     // TODO
     return new(() => new());

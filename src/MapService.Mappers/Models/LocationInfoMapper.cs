@@ -6,7 +6,7 @@ namespace UniversityHelper.MapService.Mappers.Models;
 
 public class LocationInfoMapper : ILocationInfoMapper
 {
-  public LocationInfo Map(DbLocation dbLocation)
+  public LocationInfo Map(DbPoint dbLocation)
   {
     throw new NotImplementedException();
   }

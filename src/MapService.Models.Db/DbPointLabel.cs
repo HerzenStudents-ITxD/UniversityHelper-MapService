@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,40 +9,38 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace UniversityHelper.MapService.Models.Db;
 
-public class DbMap
+public class DbPointLabel
 {
-  public const string TableName = "Maps";
+  public const string TableName = "LabelPoints";
 
   public Guid Id { get; set; }
   public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
+  
   public bool IsActive { get; set; }
 
-  public Guid UniversityId { get; set; }
-  public Guid FileId { get; set; }
-
-
-  public ICollection<DbMapVersion> Versions { get; set; }
-
-  public DbMap()
-  {
-    Versions = new HashSet<DbMapVersion>();
-  }
+  public Guid LabelId { get; set; }
+  public DbLabel Label { get; set; }
+  public Guid PointId { get; set; }
+  public DbPoint Point { get; set; }
 }
 
-public class DbMapConfiguration : IEntityTypeConfiguration<DbMap>
+public class DbPointLabelConfiguration : IEntityTypeConfiguration<DbPointLabel>
 {
-  public void Configure(EntityTypeBuilder<DbMap> builder)
+  public void Configure(EntityTypeBuilder<DbPointLabel> builder)
   {
     builder
-        .ToTable(DbMap.TableName);
+        .ToTable(DbPointLabel.TableName);
 
     builder
         .HasKey(x => x.Id);
 
 
     builder
-      .HasMany(x => x.Versions)
-      .WithOne(x => x.Map);
+        .HasOne(x => x.Label)
+        .WithMany(x => x.Points);
+    builder
+    .HasOne(x => x.Point)
+    .WithMany(x => x.Labels);
   }
 }

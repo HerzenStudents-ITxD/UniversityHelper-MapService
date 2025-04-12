@@ -18,13 +18,13 @@ public class DbLabel
   public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
   public bool IsActive { get; set; }
-  public bool IsSuggested { get; set; }
-
-  public ICollection<DbLabelAddition> Additions { get; set; }
+  public string Name { get; set; }
+  [IgnoreParse]
+  public ICollection<DbPointLabel> Points { get; set; }
 
   public DbLabel()
   {
-    Additions = new HashSet<DbLabelAddition>();
+    Points = new HashSet<DbPointLabel>();
   }
 }
 
@@ -40,7 +40,7 @@ public class DbLabelConfiguration : IEntityTypeConfiguration<DbLabel>
 
 
     builder
-      .HasMany(x => x.Additions)
+      .HasMany(x => x.Points)
       .WithOne(x => x.Label);
   }
 }

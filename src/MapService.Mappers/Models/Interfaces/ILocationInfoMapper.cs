@@ -12,5 +12,5 @@ namespace UniversityHelper.MapService.Mappers.Models.Interfaces;
 [AutoInject]
 public interface ILocationInfoMapper
 {
-  LocationInfo Map(DbLocation dbLocation);
+  LocationInfo Map(DbPoint dbLocation);
 }

@@ -11,13 +11,13 @@ public class MapServiceDbContext : DbContext, IDataProvider
 {
   public DbSet<DbLabel> Labels { get; set; }
   public DbSet<DbLabelAddition> LabelAdditions { get; set; }
-  public DbSet<DbLabelLocation> LabelLocations { get; set; }
-  public DbSet<DbLocation> Locations { get; set; }
+  public DbSet<DbPointLabel> LabelLocations { get; set; }
+  public DbSet<DbPoint> Locations { get; set; }
   public DbSet<DbLocationAddition> LocationAdditions { get; set; }
-  public DbSet<DbLocationPhoto> LocationPhotos { get; set; }
+  public DbSet<DbPointPhoto> LocationPhotos { get; set; }
   public DbSet<DbLocationUnityObjectName> LocationUnityObjectNames { get; set; }
   public DbSet<DbLocationUnityPosition> LocationUnityPositions { get; set; }
-  public DbSet<DbLocationUnityPositionRelation> LocationUnityPositionRelations { get; set; }
+  public DbSet<DbRelation> LocationUnityPositionRelations { get; set; }
   public DbSet<DbMap> Maps { get; set; }
   public DbSet<DbMapVersion> Versions { get; set; }
   public MapServiceDbContext(DbContextOptions<MapServiceDbContext> options) : base(options) { }

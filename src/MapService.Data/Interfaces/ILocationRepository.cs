@@ -10,11 +10,11 @@ namespace UniversityHelper.MapService.Data.Interfaces;
 [AutoInject]
 public interface ILocationRepository
 {
-  Task CreateAsync(DbLocation dbLocation);
+  Task CreateAsync(DbPoint dbLocation);
 
-  Task<DbLocation> GetAsync(GetLocationFilter filter);
+  Task<DbPoint> GetAsync(GetLocationFilter filter);
 
-  Task<List<DbLocation>> FindAllAsync(FindLocationsFilter filter);
+  Task<List<DbPoint>> FindAllAsync(FindLocationsFilter filter);
 
   Task<bool> DoesExistAsync(Guid locationId);
 
