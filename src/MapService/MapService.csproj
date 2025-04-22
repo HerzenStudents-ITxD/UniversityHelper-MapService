@@ -43,7 +43,7 @@
     <ProjectReference Include="..\MapService.Mappers\MapService.Mappers.csproj" />
     <ProjectReference Include="..\MapService.Models.Db\MapService.Models.Db.csproj" />
     <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
-    <ProjectReference Include="..\MapService.Validation\MapService.Validation.csproj" />
+    <ProjectReference Include="..\MapService.Validation\MapService.Validators.csproj" />
   </ItemGroup>
 
   <ItemGroup>

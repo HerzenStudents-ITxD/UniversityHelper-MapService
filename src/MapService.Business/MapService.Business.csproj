@@ -1,20 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
+
+  <ItemGroup>
+    <Compile Remove="Commands\PointAddition\**" />
+    <Compile Remove="Commands\PointLabel\**" />
+    <Compile Remove="Commands\PointPhoto\**" />
+    <Compile Remove="Commands\PointUnityObjectName\**" />
+    <Compile Remove="Commands\PointUnityPositionRelation\**" />
+    <Compile Remove="Commands\PointUnityPosition\**" />
+    <EmbeddedResource Remove="Commands\PointAddition\**" />
+    <EmbeddedResource Remove="Commands\PointLabel\**" />
+    <EmbeddedResource Remove="Commands\PointPhoto\**" />
+    <EmbeddedResource Remove="Commands\PointUnityObjectName\**" />
+    <EmbeddedResource Remove="Commands\PointUnityPositionRelation\**" />
+    <EmbeddedResource Remove="Commands\PointUnityPosition\**" />
+    <None Remove="Commands\PointAddition\**" />
+    <None Remove="Commands\PointLabel\**" />
+    <None Remove="Commands\PointPhoto\**" />
+    <None Remove="Commands\PointUnityObjectName\**" />
+    <None Remove="Commands\PointUnityPositionRelation\**" />
+    <None Remove="Commands\PointUnityPosition\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MapService.Data\MapService.Data.csproj" />
     <ProjectReference Include="..\MapService.Mappers\MapService.Mappers.csproj" />
     <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\PointAddition\Interfaces\" />
-    <Folder Include="Commands\PointLabel\Interfaces\" />
-    <Folder Include="Commands\PointUnityObjectName\Interfaces\" />
-    <Folder Include="Commands\PointPhoto\Interfaces\" />
-    <Folder Include="Commands\PointUnityPositionRelation\Interfaces\" />
-    <Folder Include="Commands\PointUnityPosition\Interfaces\" />
   </ItemGroup>
 
 </Project>

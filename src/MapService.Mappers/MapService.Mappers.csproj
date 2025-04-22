@@ -4,7 +4,6 @@
 
   <ItemGroup>
     <Folder Include="Db\Interfaces\" />
-    <Folder Include="Models\Interfaces\" />
     <Folder Include="Responses\Interfaces\" />
   </ItemGroup>
 

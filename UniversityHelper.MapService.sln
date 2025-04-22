@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapService.Models.Db", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapService.Models.Dto", "src\MapService.Models.Dto\MapService.Models.Dto.csproj", "{5B63B44C-E6A2-41FB-8365-856747BA246E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapService.Validation", "src\MapService.Validation\MapService.Validation.csproj", "{B1081AAC-1B8C-47B8-864D-E8A803D0B0D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapService.Validators", "src\MapService.Validation\MapService.Validators.csproj", "{B1081AAC-1B8C-47B8-864D-E8A803D0B0D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
