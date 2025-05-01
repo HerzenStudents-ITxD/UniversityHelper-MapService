@@ -27,23 +27,23 @@ public class EditRelationCommand : IEditRelationCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid relationId, EditRelationRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can edit relations."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can edit relations." }
+      );
     }
 
     var relation = await _relationRepository.GetAsync(relationId);
     if (relation == null)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Relation not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Relation not found." }
+      );
     }
 
     if (request.FirstPointId.HasValue)
@@ -51,10 +51,10 @@ public class EditRelationCommand : IEditRelationCommand
       if (!await _pointRepository.DoesExistAsync(request.FirstPointId.Value))
       {
         return new OperationResultResponse<bool>
-        {
-          StatusCode = HttpStatusCode.NotFound,
-          Message = "First point not found."
-        };
+        (
+            body: false, 
+            errors: new List<string> { "First point not found." }
+        );
       }
       relation.FirstPointId = request.FirstPointId.Value;
     }
@@ -64,10 +64,10 @@ public class EditRelationCommand : IEditRelationCommand
       if (!await _pointRepository.DoesExistAsync(request.SecondPointId.Value))
       {
         return new OperationResultResponse<bool>
-        {
-          StatusCode = HttpStatusCode.NotFound,
-          Message = "Second point not found."
-        };
+        (
+            body: false,
+          errors: new List<string> { "Second point not found." }
+        );
       }
       relation.SecondPointId = request.SecondPointId.Value;
     }

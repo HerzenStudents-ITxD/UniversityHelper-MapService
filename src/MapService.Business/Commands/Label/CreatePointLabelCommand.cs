@@ -11,6 +11,7 @@ using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
 
+
 namespace UniversityHelper.MapService.Business.Commands.Label;
 
 public class CreatePointLabelCommand : ICreatePointLabelCommand
@@ -31,13 +32,13 @@ public class CreatePointLabelCommand : ICreatePointLabelCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreatePointLabelRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create labels."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can create labels." }
+      );
     }
 
     var label = new DbPointLabel

@@ -33,10 +33,10 @@ public class GetPointTypesCommand : IGetPointTypesCommand
     if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
     {
       return new OperationResultResponse<List<PointTypeInfo>>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins can include deactivated types."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can include deactivated types." }
+      );
     }
 
     var types = await _repository.FindAllAsync(filter);

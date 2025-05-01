@@ -25,23 +25,23 @@ public class EditPointLabelCommand : IEditPointLabelCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid labelId, EditPointLabelRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can edit labels."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can edit labels." }
+      );
     }
 
     var label = await _repository.GetAsync(labelId);
     if (label == null)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Label not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Label not found." }
+      );
     }
 
     if (request.Name != null)

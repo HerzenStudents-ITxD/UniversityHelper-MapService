@@ -22,22 +22,22 @@ public class DeleteRelationCommand : IDeleteRelationCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid relationId)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can delete relations."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can delete relations." }
+      );
     }
 
     if (!await _relationRepository.DoesExistAsync(relationId))
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Relation not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Relation not found." }
+      );
     }
 
     var result = await _relationRepository.DeleteAsync(relationId);

@@ -81,7 +81,7 @@ public class PointTypeRepository : IPointTypeRepository
 
     if (!string.IsNullOrEmpty(filter.Locale))
     {
-      query = query.Where(t => EF.Functions.JsonContains(t.Name, $"\"{filter.Locale}\""));
+      query = query.Where(t => EF.Functions.Contains(t.Name, $"\"{filter.Locale}\""));
     }
 
     return await query.ToListAsync();

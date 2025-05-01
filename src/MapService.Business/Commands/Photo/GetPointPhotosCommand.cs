@@ -36,19 +36,19 @@ public class GetPointPhotosCommand : IGetPointPhotosCommand
     if (!await _pointRepository.DoesExistAsync(filter.PointId))
     {
       return new OperationResultResponse<List<PointPhotoInfo>>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point not found." }
+      );
     }
 
     if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
     {
       return new OperationResultResponse<List<PointPhotoInfo>>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins can include deactivated photos."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can include deactivated photos." }
+      );
     }
 
     var photos = await _photoRepository.FindAllAsync(filter);

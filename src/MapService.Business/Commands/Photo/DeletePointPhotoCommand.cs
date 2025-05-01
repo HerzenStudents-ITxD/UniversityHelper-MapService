@@ -22,22 +22,22 @@ public class DeletePointPhotoCommand : IDeletePointPhotoCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid photoId)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can delete photos."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can delete photos." }
+      );
     }
 
     if (!await _photoRepository.DoesExistAsync(photoId))
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Photo not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Photo not found." }
+      );
     }
 
     var result = await _photoRepository.EditStatusAsync(photoId, false);

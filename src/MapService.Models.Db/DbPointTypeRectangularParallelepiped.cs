@@ -13,13 +13,16 @@ public class DbPointTypeRectangularParallelepiped
 
   public Guid Id { get; set; }
   public Guid PointTypeId { get; set; }
+  public Guid CreatedBy { get; set; }
+  public DateTime CreatedAtUtc { get; set; }
+  public bool IsActive { get; set; }
   public DbPointType PointType { get; set; }
-  public float X1 { get; set; }
-  public float Y1 { get; set; }
-  public float Z1 { get; set; }
-  public float X2 { get; set; }
-  public float Y2 { get; set; }
-  public float Z2 { get; set; }
+  public float XMin { get; set; }
+  public float YMin { get; set; }
+  public float ZMin { get; set; }
+  public float XMax { get; set; }
+  public float YMax { get; set; }
+  public float ZMax { get; set; }
 }
 public class DbPointTypeRectangularParallelepipedConfiguration : IEntityTypeConfiguration<DbPointTypeRectangularParallelepiped>
 {

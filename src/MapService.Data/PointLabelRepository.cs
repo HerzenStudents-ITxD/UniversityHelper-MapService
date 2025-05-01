@@ -73,7 +73,7 @@ public class PointLabelRepository : IPointLabelRepository
 
     if (!string.IsNullOrEmpty(filter.Locale))
     {
-      query = query.Where(l => EF.Functions.JsonContains(l.Name, $"\"{filter.Locale}\""));
+      query = query.Where(l => EF.Functions.Contains(l.Name, $"\"{filter.Locale}\""));
     }
 
     return await query.ToListAsync();

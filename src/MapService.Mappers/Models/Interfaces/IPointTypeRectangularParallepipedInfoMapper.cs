@@ -7,5 +7,5 @@ namespace UniversityHelper.MapService.Mappers.Models.Interfaces;
 [AutoInject]
 public interface IPointTypeRectangularParallepipedInfoMapper
 {
-  PointTypeRectangularParallepipedInfo Map(DbPointTypeRectangularParallepiped dbParallelepiped);
+  PointTypeRectangularParallepipedInfo Map(DbPointTypeRectangularParallelepiped dbParallelepiped);
 }

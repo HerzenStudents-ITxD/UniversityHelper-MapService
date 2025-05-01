@@ -9,6 +9,7 @@ using UniversityHelper.MapService.Business.Commands.PointTypeAssociation.Interfa
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.PointTypeAssociation;
 
@@ -40,37 +41,37 @@ public class CreatePointTypeAssociationCommand : ICreatePointTypeAssociationComm
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: null,
+         errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create associations."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can create associations." }
+      );
     }
 
     if (!await _pointTypeRepository.DoesExistAsync(request.PointTypeId))
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point type not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point type not found." }
+      );
     }
 
     if (await _associationRepository.DoesExistByNameAndTypeAsync(request.PointTypeId, request.Association))
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Conflict,
-        Message = "Association already exists for this point type."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Association already exists for this point type." }
+      );
     }
 
     var association = new DbPointTypeAssociation

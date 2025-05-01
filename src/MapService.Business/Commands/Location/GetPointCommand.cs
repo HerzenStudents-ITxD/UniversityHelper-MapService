@@ -28,10 +28,10 @@ public class GetPointCommand : IGetPointCommand
     if (point == null)
     {
       return new OperationResultResponse<PointInfo>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point not found." }
+      );
     }
 
     return new OperationResultResponse<PointInfo>

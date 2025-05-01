@@ -83,11 +83,11 @@ public class PointRepository : IPointRepository
     if (!string.IsNullOrEmpty(filter.Locale))
     {
       // Фильтрация по локализованным полям (Name, Description) в JSON
-      query = query.Where(p => EF.Functions.JsonContains(p.Name, $"\"{filter.Locale}\"")
-                           || EF.Functions.JsonContains(p.Description, $"\"{filter.Locale}\""));
+      query = query.Where(p => EF.Functions.Contains(p.Name, $"\"{filter.Locale}\"")
+                           || EF.Functions.Contains(p.Description, $"\"{filter.Locale}\""));
     }
 
-    if (filter.CreatedBy != 0)
+    if (filter.CreatedBy != Guid.Empty)
     {
       query = query.Where(p => p.CreatedBy == filter.CreatedBy);
     }

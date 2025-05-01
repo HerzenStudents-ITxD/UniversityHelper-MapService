@@ -36,19 +36,19 @@ public class GetPointTypeAssociationsCommand : IGetPointTypeAssociationsCommand
     if (!await _pointTypeRepository.DoesExistAsync(filter.PointTypeId))
     {
       return new OperationResultResponse<List<PointTypeAssociationInfo>>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point type not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point type not found." }
+      );
     }
 
     if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
     {
       return new OperationResultResponse<List<PointTypeAssociationInfo>>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins can include deactivated associations."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can include deactivated associations." }
+      );
     }
 
     var associations = await _associationRepository.FindAllAsync(filter);

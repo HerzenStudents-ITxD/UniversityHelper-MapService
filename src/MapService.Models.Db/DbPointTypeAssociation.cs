@@ -13,6 +13,9 @@ public class DbPointTypeAssociation
 
   public Guid Id { get; set; }
   public Guid PointTypeId { get; set; }
+  public Guid CreatedBy { get; set; }
+  public DateTime CreatedAtUtc { get; set; }
+  public bool IsActive { get; set; }
   public DbPointType PointType { get; set; }
   public string Association { get; set; }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Responses;
@@ -35,26 +34,24 @@ public class GetPointTypeRectangularParallepipedsCommand : IGetPointTypeRectangu
   {
     if (!await _pointTypeRepository.DoesExistAsync(filter.PointTypeId))
     {
-      return new OperationResultResponse<List<PointTypeRectangularParallepipedInfo>>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point type not found."
-      };
+      return new OperationResultResponse<List<PointTypeRectangularParallepipedInfo>>(
+          body: null,
+          errors: new List<string> { "Point type not found." }
+      );
     }
 
     if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
     {
-      return new OperationResultResponse<List<PointTypeRectangularParallepipedInfo>>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins can include deactivated parallelepipeds."
-      };
+      return new OperationResultResponse<List<PointTypeRectangularParallepipedInfo>>(
+          body: null,
+          errors: new List<string> { "Only admins can include deactivated parallelepipeds." }
+      );
     }
 
     var parallelepipeds = await _parallelepipedRepository.FindAllAsync(filter);
-    return new OperationResultResponse<List<PointTypeRectangularParallepipedInfo>>
-    {
-      Body = parallelepipeds.Select(_mapper.Map).ToList()
-    };
+    return new OperationResultResponse<List<PointTypeRectangularParallepipedInfo>>(
+        body: parallelepipeds.Select(_mapper.Map).ToList(),
+        errors: new List<string>()
+    );
   }
 }

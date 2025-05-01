@@ -22,22 +22,22 @@ public class DeletePointTypeCommand : IDeletePointTypeCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid typeId)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can delete point types."
-      };
+      (
+         body: false,
+         errors: new List<string> { "Only admins can delete point types." }
+      );
     }
 
     if (!await _repository.DoesExistAsync(typeId))
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point type not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Point type not found." }
+      );
     }
 
     var result = await _repository.EditStatusAsync(typeId, false);

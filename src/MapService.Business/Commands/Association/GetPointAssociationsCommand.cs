@@ -33,10 +33,10 @@ public class GetPointAssociationsCommand : IGetPointAssociationsCommand
     if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
     {
       return new OperationResultResponse<List<PointAssociationInfo>>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins can include deactivated associations."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can include deactivated associations." }
+      );
     }
 
     var associations = await _repository.FindAllAsync(filter);

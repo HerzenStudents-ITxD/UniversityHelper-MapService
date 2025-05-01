@@ -9,6 +9,7 @@ public class DbPointPhoto
   public const string TableName = "Photos";
 
   public Guid Id { get; set; }
+  public Guid PointId { get; set; }
   public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
   public bool IsActive { get; set; }

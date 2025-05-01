@@ -6,6 +6,7 @@ using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.PointTypeAssociation.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.PointTypeAssociation;
 
@@ -31,29 +32,29 @@ public class EditPointTypeAssociationCommand : IEditPointTypeAssociationCommand
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: false,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can edit associations."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can edit associations." }
+      );
     }
 
     var association = await _associationRepository.GetAsync(associationId);
     if (association == null)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Association not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Association not found." }
+      );
     }
 
     if (request.Association != null)
@@ -62,10 +63,10 @@ public class EditPointTypeAssociationCommand : IEditPointTypeAssociationCommand
           association.Association != request.Association)
       {
         return new OperationResultResponse<bool>
-        {
-          StatusCode = HttpStatusCode.Conflict,
-          Message = "Association already exists for this point type."
-        };
+        (
+            body: false,
+          errors: new List<string> { "Association already exists for this point type." }
+        );
       }
       association.Association = request.Association;
     }

@@ -33,10 +33,10 @@ public class GetPointLabelsCommand : IGetPointLabelsCommand
     if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
     {
       return new OperationResultResponse<List<PointLabelInfo>>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins can include deactivated labels."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can include deactivated labels." }
+      );
     }
 
     var labels = await _repository.FindAllAsync(filter);

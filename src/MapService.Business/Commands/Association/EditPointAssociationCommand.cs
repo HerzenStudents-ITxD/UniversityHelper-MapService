@@ -6,7 +6,7 @@ using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.Association.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Dto.Requests;
-
+using UniversityHelper.MapService.Validators.Interfaces;
 namespace UniversityHelper.MapService.Business.Commands.Association;
 
 public class EditPointAssociationCommand : IEditPointAssociationCommand
@@ -31,29 +31,29 @@ public class EditPointAssociationCommand : IEditPointAssociationCommand
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: false,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can edit associations."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can edit associations." }
+      );
     }
 
     var association = await _repository.GetAsync(associationId);
     if (association == null)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Association not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Association not found." }
+      );
     }
 
     if (request.Association != null)
@@ -61,11 +61,12 @@ public class EditPointAssociationCommand : IEditPointAssociationCommand
       if (await _repository.DoesExistByNameAsync(request.Association) && association.Association != request.Association)
       {
         return new OperationResultResponse<bool>
-        {
-          StatusCode = HttpStatusCode.Conflict,
-          Message = "Association already exists."
-        };
+        (
+            body: false,
+          errors: new List<string> { "Association already exists." }
+        );
       }
+
       association.Association = request.Association;
     }
 

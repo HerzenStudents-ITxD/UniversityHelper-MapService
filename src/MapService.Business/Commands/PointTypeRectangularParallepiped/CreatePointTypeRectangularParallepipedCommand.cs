@@ -9,6 +9,7 @@ using UniversityHelper.MapService.Business.Commands.PointTypeRectangularParallep
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.PointTypeRectangularParallepiped;
 
@@ -40,40 +41,40 @@ public class CreatePointTypeRectangularParallepipedCommand : ICreatePointTypeRec
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: null,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create parallelepipeds."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins create parallelepipeds." }
+      );
     }
 
     if (!await _pointTypeRepository.DoesExistAsync(request.PointTypeId))
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point type not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point type not found." }
+      );
     }
 
-    var parallelepiped = new DbPointTypeRectangularParallepiped
+    var parallelepiped = new DbPointTypeRectangularParallelepiped
     {
       Id = Guid.NewGuid(),
       PointTypeId = request.PointTypeId,
-      XMin = request.XMin,
-      XMax = request.XMax,
-      YMin = request.YMin,
-      YMax = request.YMax,
-      ZMin = request.ZMin,
-      ZMax = request.ZMax,
+      XMin = (float)request.XMin,
+      XMax = (float)request.XMax,
+      YMin = (float)request.YMin,
+      YMax = (float)request.YMax,
+      ZMin = (float)request.ZMin,
+      ZMax = (float)request.ZMax,
       CreatedBy = _httpContextAccessor.HttpContext.GetUserId(),
       CreatedAtUtc = DateTime.UtcNow,
       IsActive = true

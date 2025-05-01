@@ -8,6 +8,7 @@ using UniversityHelper.MapService.Business.Commands.PointType.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.PointType;
 
@@ -33,29 +34,29 @@ public class EditPointTypeCommand : IEditPointTypeCommand
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: false,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can edit point types."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can edit point types." }
+      );
     }
 
     var pointType = await _repository.GetAsync(typeId);
     if (pointType == null)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point type not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Point type not found." }
+      );
     }
 
     if (request.Name != null)
@@ -68,10 +69,10 @@ public class EditPointTypeCommand : IEditPointTypeCommand
       if (await _repository.DoesExistByIconAsync(request.Icon) && pointType.Icon != request.Icon)
       {
         return new OperationResultResponse<bool>
-        {
-          StatusCode = HttpStatusCode.Conflict,
-          Message = "Icon already exists."
-        };
+        (
+            body: false,
+          errors: new List<string> { "Icon already exists." }
+        );
       }
       pointType.Icon = request.Icon;
     }

@@ -9,6 +9,7 @@ using UniversityHelper.MapService.Business.Commands.Photo.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.Photo;
 
@@ -40,28 +41,28 @@ public class CreatePointPhotoCommand : ICreatePointPhotoCommand
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: null,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create photos."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can create photos." }
+      );
     }
 
     if (!await _pointRepository.DoesExistAsync(request.PointId))
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point not found." }
+      );
     }
 
     var photo = new DbPointPhoto

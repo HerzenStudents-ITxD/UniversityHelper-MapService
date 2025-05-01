@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Net;
+using System.Collections.Generic; // Добавлено для List<string>
+using System.Linq;
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Extensions;
@@ -9,6 +10,7 @@ using UniversityHelper.MapService.Business.Commands.Association.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.Association;
 
@@ -36,29 +38,26 @@ public class CreatePointAssociationCommand : ICreatePointAssociationCommand
     var validationResult = await _validator.ValidateAsync(request);
     if (!validationResult.IsValid)
     {
-      return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      return new OperationResultResponse<Guid?>(
+          body: null,
+          errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
-      return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create associations."
-      };
+      return new OperationResultResponse<Guid?>(
+          body: null,
+          errors: new List<string> { "Only admins can create associations." }
+      );
     }
 
     if (await _repository.DoesExistByNameAsync(request.Association))
     {
-      return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Conflict,
-        Message = "Association already exists."
-      };
+      return new OperationResultResponse<Guid?>(
+          body: null,
+          errors: new List<string> { "Association already exists." }
+      );
     }
 
     var association = new DbPointTypeAssociation
@@ -71,9 +70,9 @@ public class CreatePointAssociationCommand : ICreatePointAssociationCommand
     };
 
     await _repository.CreateAsync(association);
-    return new OperationResultResponse<Guid?>
-    {
-      Body = association.Id
-    };
+    return new OperationResultResponse<Guid?>(
+        body: association.Id,
+        errors: new List<string>()
+    );
   }
 }

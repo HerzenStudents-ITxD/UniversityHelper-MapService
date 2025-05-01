@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
+using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.Route.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
@@ -17,131 +17,143 @@ public class BuildRouteCommand : IBuildRouteCommand
 {
   private readonly IRelationRepository _relationRepository;
   private readonly IPointRepository _pointRepository;
-  private readonly IRouteInfoMapper _mapper;
+  private readonly IPointInfoMapper _pointInfoMapper;
+  private readonly IAccessValidator _accessValidator;
 
   public BuildRouteCommand(
       IRelationRepository relationRepository,
       IPointRepository pointRepository,
-      IRouteInfoMapper mapper)
+      IPointInfoMapper pointInfoMapper,
+      IAccessValidator accessValidator)
   {
     _relationRepository = relationRepository;
     _pointRepository = pointRepository;
-    _mapper = mapper;
+    _pointInfoMapper = pointInfoMapper;
+    _accessValidator = accessValidator;
   }
 
   public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(BuildRouteFilter filter)
   {
-    if (!await _pointRepository.DoesExistAsync(filter.StartPointId) || !await _pointRepository.DoesExistAsync(filter.EndPointId))
+    // Проверка прав доступа
+    if (!await _accessValidator.IsAdminAsync() && filter.Locale == null)
     {
       return new OperationResultResponse<List<PointInfo>>
       {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "One or both points not found."
+        Body = null,
+        Errors = new List<string> { "Locale is required for non-admin users." }
       };
     }
 
+    // Получение всех связей между точками
     var relations = await _relationRepository.GetAllAsync();
-    var path = FindShortestPath(relations, filter.StartPointId, filter.EndPointId);
-
-    if (path == null || path.Count == 0)
+    if (!relations.Any())
     {
       return new OperationResultResponse<List<PointInfo>>
       {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "No route found."
+        Body = null,
+        Errors = new List<string> { "No relations found." }
       };
     }
 
-    var points = new List<DbPoint>();
-    foreach (var pointId in path)
-    {
-      var point = await _pointRepository.GetAsync(new GetPointFilter { PointId = pointId, Locale = filter.Locale });
-      if (point != null)
-      {
-        points.Add(point);
-      }
-    }
-
-    return new OperationResultResponse<List<PointInfo>>
-    {
-      Body = _mapper.Map(points)
-    };
-  }
-
-  private List<Guid> FindShortestPath(List<DbRelation> relations, Guid start, Guid end)
-  {
+    // Построение графа
     var graph = new Dictionary<Guid, List<(Guid, float)>>();
     foreach (var relation in relations)
     {
+      // Предполагаем, что вес связи вычисляется как евклидово расстояние
+      var point1 = await _pointRepository.GetAsync(new GetPointFilter { PointId = relation.FirstPointId });
+      var point2 = await _pointRepository.GetAsync(new GetPointFilter { PointId = relation.SecondPointId });
+      if (point1 == null || point2 == null)
+        continue;
+
+      float distance = CalculateDistance(point1, point2);
+
       if (!graph.ContainsKey(relation.FirstPointId))
         graph[relation.FirstPointId] = new List<(Guid, float)>();
       if (!graph.ContainsKey(relation.SecondPointId))
         graph[relation.SecondPointId] = new List<(Guid, float)>();
 
-      graph[relation.FirstPointId].Add((relation.SecondPointId, 1f));
-      graph[relation.SecondPointId].Add((relation.FirstPointId, 1f));
+      graph[relation.FirstPointId].Add((relation.SecondPointId, distance));
+      graph[relation.SecondPointId].Add((relation.FirstPointId, distance));
     }
 
-    var distances = new Dictionary<Guid, float> { { start, 0 } };
+    // Алгоритм Дейкстры
+    var distances = new Dictionary<Guid, float> { { filter.StartPointId, 0 } };
     var previous = new Dictionary<Guid, Guid?>();
-    var queue = new PriorityQueue<(Guid, float)>();
-    queue.Enqueue((start, 0));
+    var priorityQueue = new SortedSet<(float Distance, Guid Node)> { (0, filter.StartPointId) };
+    var visited = new HashSet<Guid>();
 
-    while (queue.Count > 0)
+    while (priorityQueue.Any())
     {
-      var (current, currentDistance) = queue.Dequeue();
+      var (currentDistance, currentNode) = priorityQueue.Min;
+      priorityQueue.Remove(priorityQueue.Min);
 
-      if (current == end)
-        break;
-
-      if (!graph.ContainsKey(current))
+      if (visited.Contains(currentNode))
         continue;
 
-      foreach (var (neighbor, weight) in graph[current])
-      {
-        var distance = currentDistance + weight;
+      visited.Add(currentNode);
 
-        if (!distances.ContainsKey(neighbor) || distance < distances[neighbor])
+      if (currentNode == filter.EndPointId)
+        break;
+
+      if (!graph.ContainsKey(currentNode))
+        continue;
+
+      foreach (var (neighbor, weight) in graph[currentNode])
+      {
+        if (visited.Contains(neighbor))
+          continue;
+
+        float newDistance = currentDistance + weight;
+        if (!distances.ContainsKey(neighbor) || newDistance < distances[neighbor])
         {
-          distances[neighbor] = distance;
-          previous[neighbor] = current;
-          queue.Enqueue((neighbor, distance));
+          distances[neighbor] = newDistance;
+          previous[neighbor] = currentNode;
+          priorityQueue.Add((newDistance, neighbor));
         }
       }
     }
 
-    if (!previous.ContainsKey(end))
-      return new List<Guid>();
+    // Построение пути
+    if (!distances.ContainsKey(filter.EndPointId))
+    {
+      return new OperationResultResponse<List<PointInfo>>
+      {
+        Body = null,
+        Errors = new List<string> { "No route found." }
+      };
+    }
 
     var path = new List<Guid>();
-    var currentNode = end;
-    while (currentNode != start)
+    Guid? current = filter.EndPointId;
+    while (current.HasValue)
     {
-      path.Add(currentNode);
-      currentNode = previous[currentNode].Value;
+      path.Add(current.Value);
+      current = previous.ContainsKey(current.Value) ? previous[current.Value] : null;
     }
-    path.Add(start);
     path.Reverse();
-    return path;
+
+    // Получение информации о точках
+    var points = new List<PointInfo>();
+    foreach (var pointId in path)
+    {
+      var point = await _pointRepository.GetAsync(new GetPointFilter { PointId = pointId, Locale = filter.Locale });
+      if (point != null)
+      {
+        points.Add(_pointInfoMapper.Map(point));
+      }
+    }
+
+    return new OperationResultResponse<List<PointInfo>>
+    {
+      Body = points
+    };
   }
 
-  private class PriorityQueue<T>
+  private float CalculateDistance(DbPoint point1, DbPoint point2)
   {
-    private readonly List<(T, float)> _elements = new();
-
-    public int Count => _elements.Count;
-
-    public void Enqueue((T, float) item)
-    {
-      _elements.Add(item);
-      _elements.Sort((a, b) => a.Item2.CompareTo(b.Item2));
-    }
-
-    public (T, float) Dequeue()
-    {
-      var item = _elements[0];
-      _elements.RemoveAt(0);
-      return item;
-    }
+    return (float)Math.Sqrt(
+        Math.Pow(point1.X - point2.X, 2) +
+        Math.Pow(point1.Y - point2.Y, 2) +
+        Math.Pow(point1.Z - point2.Z, 2));
   }
 }

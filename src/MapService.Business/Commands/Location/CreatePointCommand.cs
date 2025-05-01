@@ -5,6 +5,7 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
+using UniversityHelper.Core.Extensions;
 using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.Location.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
@@ -31,13 +32,13 @@ public class CreatePointCommand : ICreatePointCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreatePointRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create points."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can create points." }
+      );
     }
 
     var point = new DbPoint

@@ -22,22 +22,22 @@ public class DeletePointTypeRectangularParallepipedCommand : IDeletePointTypeRec
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid parallelepipedId)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can delete parallelepipeds."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can delete parallelepipeds." }
+      );
     }
 
     if (!await _parallelepipedRepository.DoesExistAsync(parallelepipedId))
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Parallelepiped not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Parallelepiped not found." }
+      );
     }
 
     var result = await _parallelepipedRepository.EditStatusAsync(parallelepipedId, false);

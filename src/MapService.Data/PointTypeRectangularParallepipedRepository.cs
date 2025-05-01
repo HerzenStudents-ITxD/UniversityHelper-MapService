@@ -25,31 +25,31 @@ public class PointTypeRectangularParallepipedRepository : IPointTypeRectangularP
     _httpContextAccessor = httpContextAccessor;
   }
 
-  public async Task CreateAsync(DbPointTypeRectangularParallepiped dbParallelepiped)
+  public async Task CreateAsync(DbPointTypeRectangularParallelepiped dbParallelepiped)
   {
     if (dbParallelepiped == null)
     {
       throw new ArgumentNullException(nameof(dbParallelepiped));
     }
 
-    _provider.PointTypeRectangularParallepipeds.Add(dbParallelepiped);
+    _provider.PointTypeRectangularParallelepipeds.Add(dbParallelepiped);
     await _provider.SaveAsync();
   }
 
-  public async Task<DbPointTypeRectangularParallepiped> GetAsync(Guid parallelepipedId)
+  public async Task<DbPointTypeRectangularParallelepiped> GetAsync(Guid parallelepipedId)
   {
-    return await _provider.PointTypeRectangularParallepipeds
+    return await _provider.PointTypeRectangularParallelepipeds
         .FirstOrDefaultAsync(p => p.Id == parallelepipedId);
   }
 
   public async Task<bool> DoesExistAsync(Guid parallelepipedId)
   {
-    return await _provider.PointTypeRectangularParallepipeds.AnyAsync(p => p.Id == parallelepipedId);
+    return await _provider.PointTypeRectangularParallelepipeds.AnyAsync(p => p.Id == parallelepipedId);
   }
 
   public async Task<bool> EditStatusAsync(Guid parallelepipedId, bool isActive)
   {
-    var parallelepiped = await _provider.PointTypeRectangularParallepipeds.FirstOrDefaultAsync(p => p.Id == parallelepipedId);
+    var parallelepiped = await _provider.PointTypeRectangularParallelepipeds.FirstOrDefaultAsync(p => p.Id == parallelepipedId);
     if (parallelepiped == null)
     {
       return false;
@@ -57,14 +57,14 @@ public class PointTypeRectangularParallepipedRepository : IPointTypeRectangularP
 
     parallelepiped.IsActive = isActive;
     parallelepiped.CreatedBy = _httpContextAccessor.HttpContext.GetUserId();
-    _provider.PointTypeRectangularParallepipeds.Update(parallelepiped);
+    _provider.PointTypeRectangularParallelepipeds.Update(parallelepiped);
     await _provider.SaveAsync();
     return true;
   }
 
-  public async Task<List<DbPointTypeRectangularParallepiped>> FindAllAsync(GetPointTypeRectangularParallepipedsFilter filter)
+  public async Task<List<DbPointTypeRectangularParallelepiped>> FindAllAsync(GetPointTypeRectangularParallepipedsFilter filter)
   {
-    var query = _provider.PointTypeRectangularParallepipeds
+    var query = _provider.PointTypeRectangularParallelepipeds
         .Where(p => p.PointTypeId == filter.PointTypeId);
 
     if (!filter.IncludeDeactivated)
@@ -75,14 +75,14 @@ public class PointTypeRectangularParallepipedRepository : IPointTypeRectangularP
     return await query.ToListAsync();
   }
 
-  public async Task UpdateAsync(DbPointTypeRectangularParallepiped dbParallelepiped)
+  public async Task UpdateAsync(DbPointTypeRectangularParallelepiped dbParallelepiped)
   {
     if (dbParallelepiped == null)
     {
       throw new ArgumentNullException(nameof(dbParallelepiped));
     }
 
-    _provider.PointTypeRectangularParallepipeds.Update(dbParallelepiped);
+    _provider.PointTypeRectangularParallelepipeds.Update(dbParallelepiped);
     await _provider.SaveAsync();
   }
 }

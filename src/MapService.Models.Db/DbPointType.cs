@@ -13,6 +13,10 @@ public class DbPointType
   public const string TableName = "PointTypes";
   public Guid Id { get; set; }
   public string Icon { get; set; }
+  public Guid CreatedBy { get; set; }
+  public DateTime CreatedAtUtc { get; set; }
+  public bool IsActive { get; set; }
+  public string Name { get; set; }
 
   [IgnoreParse]
   public ICollection<DbPointTypeAssociation> Associations { get; set; }

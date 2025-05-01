@@ -27,6 +27,7 @@
     <ProjectReference Include="..\MapService.Data\MapService.Data.csproj" />
     <ProjectReference Include="..\MapService.Mappers\MapService.Mappers.csproj" />
     <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
+	<ProjectReference Include="..\MapService.Validation\MapService.Validators.csproj" />
   </ItemGroup>
 
 </Project>

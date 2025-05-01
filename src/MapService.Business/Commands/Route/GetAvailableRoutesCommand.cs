@@ -33,10 +33,10 @@ public class GetAvailableRoutesCommand : IGetAvailableRoutesCommand
     if (!await _pointRepository.DoesExistAsync(filter.PointId))
     {
       return new OperationResultResponse<List<PointInfo>>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Point not found." }
+      );
     }
 
     var relations = await _relationRepository.GetByPointAsync(filter.PointId);

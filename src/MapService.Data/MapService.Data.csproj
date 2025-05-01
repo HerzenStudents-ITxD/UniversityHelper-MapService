@@ -6,6 +6,7 @@
     <ProjectReference Include="..\MapService.Data.Provider\MapService.Data.Provider.csproj" />
     <ProjectReference Include="..\MapService.Models.Db\MapService.Models.Db.csproj" />
     <ProjectReference Include="..\MapService.Models.Dto\MapService.Models.Dto.csproj" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
   </ItemGroup>
 
 </Project>

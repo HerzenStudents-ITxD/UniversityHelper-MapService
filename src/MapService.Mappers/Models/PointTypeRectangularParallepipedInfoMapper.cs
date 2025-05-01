@@ -6,7 +6,7 @@ namespace UniversityHelper.MapService.Mappers.Models;
 
 public class PointTypeRectangularParallepipedInfoMapper : IPointTypeRectangularParallepipedInfoMapper
 {
-  public PointTypeRectangularParallepipedInfo Map(DbPointTypeRectangularParallepiped dbParallelepiped)
+  public PointTypeRectangularParallepipedInfo Map(DbPointTypeRectangularParallelepiped dbParallelepiped)
   {
     if (dbParallelepiped == null)
     {

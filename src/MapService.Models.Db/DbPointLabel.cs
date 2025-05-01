@@ -18,7 +18,7 @@ public class DbPointLabel
   public DateTime CreatedAtUtc { get; set; }
   
   public bool IsActive { get; set; }
-
+  public string Name { get; set; }
   public Guid LabelId { get; set; }
   public DbLabel Label { get; set; }
   public Guid PointId { get; set; }

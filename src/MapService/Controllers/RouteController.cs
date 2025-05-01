@@ -6,6 +6,7 @@ using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.Route.Interfaces;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
 namespace UniversityHelper.MapService.Controllers;
 

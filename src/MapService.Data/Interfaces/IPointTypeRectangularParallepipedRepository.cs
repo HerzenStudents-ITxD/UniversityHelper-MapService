@@ -10,10 +10,10 @@ namespace UniversityHelper.MapService.Data.Interfaces;
 [AutoInject]
 public interface IPointTypeRectangularParallepipedRepository
 {
-  Task CreateAsync(DbPointTypeRectangularParallepiped dbParallelepiped);
-  Task<DbPointTypeRectangularParallepiped> GetAsync(Guid parallelepipedId);
-  Task<List<DbPointTypeRectangularParallepiped>> FindAllAsync(GetPointTypeRectangularParallepipedsFilter filter);
+  Task CreateAsync(DbPointTypeRectangularParallelepiped dbParallelepiped);
+  Task<DbPointTypeRectangularParallelepiped> GetAsync(Guid parallelepipedId);
+  Task<List<DbPointTypeRectangularParallelepiped>> FindAllAsync(GetPointTypeRectangularParallepipedsFilter filter);
   Task<bool> DoesExistAsync(Guid parallelepipedId);
   Task<bool> EditStatusAsync(Guid parallelepipedId, bool isActive);
-  Task UpdateAsync(DbPointTypeRectangularParallepiped dbParallelepiped);
+  Task UpdateAsync(DbPointTypeRectangularParallelepiped dbParallelepiped);
 }

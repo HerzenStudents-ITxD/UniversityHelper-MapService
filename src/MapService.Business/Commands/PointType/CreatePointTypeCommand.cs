@@ -10,6 +10,7 @@ using UniversityHelper.MapService.Business.Commands.PointType.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Validators.Interfaces;
 
 namespace UniversityHelper.MapService.Business.Commands.PointType;
 
@@ -38,28 +39,28 @@ public class CreatePointTypeCommand : ICreatePointTypeCommand
     if (!validationResult.IsValid)
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.BadRequest,
-        Message = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage))
-      };
+      (
+            body: null,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
     }
 
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create point types."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins can create point types." }
+      );
     }
 
     if (await _repository.DoesExistByIconAsync(request.Icon))
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Conflict,
-        Message = "Icon already exists."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Icon already exists." }
+      );
     }
 
     var pointType = new DbPointType

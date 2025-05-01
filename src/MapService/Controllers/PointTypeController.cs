@@ -6,6 +6,7 @@ using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.PointType.Interfaces;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
 namespace UniversityHelper.MapService.Controllers;
 
@@ -34,7 +35,12 @@ public class PointTypeController : ControllerBase
   public async Task<OperationResultResponse<List<PointTypeInfo>>> List(
       [FromQuery] string? locale)
   {
-    return await _getPointTypesCommand.ExecuteAsync(new GetPointTypesFilter { Locale = locale });
+    return await _getPointTypesCommand.ExecuteAsync(
+        new GetPointTypesFilter
+        {
+          Locale = locale,
+          IncludeDeactivated = false
+        });
   }
 
   [HttpPost("create")]

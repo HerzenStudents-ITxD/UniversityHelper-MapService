@@ -33,22 +33,22 @@ public class CreateRelationCommand : ICreateRelationCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreateRelationRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can create relations."
-      };
+      (
+            body: null,
+        errors: new List<string> { "Only admins create relations." }
+      );
     }
 
     if (!await _pointRepository.DoesExistAsync(request.FirstPointId) || !await _pointRepository.DoesExistAsync(request.SecondPointId))
     {
       return new OperationResultResponse<Guid?>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "One or both points not found."
-      };
+      (
+            body: null,
+        errors: new List<string> { "One or both points not found." }
+      );
     }
 
     var relation = new DbRelation

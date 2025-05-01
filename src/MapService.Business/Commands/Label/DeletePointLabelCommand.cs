@@ -22,22 +22,22 @@ public class DeletePointLabelCommand : IDeletePointLabelCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid labelId)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can delete labels."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins delete labels." }
+      );
     }
 
     if (!await _repository.DoesExistAsync(labelId))
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Label not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Label not found." }
+      );
     }
 
     var result = await _repository.EditStatusAsync(labelId, false);

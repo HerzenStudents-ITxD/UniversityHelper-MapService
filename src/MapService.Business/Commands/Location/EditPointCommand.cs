@@ -5,11 +5,13 @@ using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
+using UniversityHelper.Core.Extensions;
 using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Business.Commands.Location.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
+using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
 namespace UniversityHelper.MapService.Business.Commands.Location;
 
@@ -31,35 +33,50 @@ public class EditPointCommand : IEditPointCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid pointId, EditPointRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync() && !await _accessValidator.IsModeratorAsync())
+    if (!await _accessValidator.IsAdminAsync())
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.Forbidden,
-        Message = "Only admins or moderators can edit points."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Only admins can edit points." }
+      );
     }
 
     var point = await _repository.GetAsync(new GetPointFilter { PointId = pointId });
     if (point == null)
     {
       return new OperationResultResponse<bool>
-      {
-        StatusCode = HttpStatusCode.NotFound,
-        Message = "Point not found."
-      };
+      (
+            body: false,
+        errors: new List<string> { "Point not found." }
+      );
     }
 
     if (request.Name != null)
+    {
       point.Name = JsonSerializer.Serialize(request.Name);
+    }
+
     if (request.Description != null)
+    {
       point.Description = JsonSerializer.Serialize(request.Description);
+    }
+
     if (request.Fact != null)
+    {
       point.Fact = JsonSerializer.Serialize(request.Fact);
+    }
+
     if (request.X.HasValue)
+    {
       point.X = request.X.Value;
+    }
+
     if (request.Y.HasValue)
+    {
       point.Y = request.Y.Value;
+    }
+
     if (request.Z.HasValue)
       point.Z = request.Z.Value;
     if (request.Icon != null)
