@@ -321,11 +321,9 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 
                     b.HasIndex("DbPointId");
 
-                    b.HasIndex("FirstPointId")
-                        .IsUnique();
+                    b.HasIndex("FirstPointId");
 
-                    b.HasIndex("SecondPointId")
-                        .IsUnique();
+                    b.HasIndex("SecondPointId");
 
                     b.ToTable("Relations", (string)null);
                 });
@@ -419,14 +417,14 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                         .HasForeignKey("DbPointId");
 
                     b.HasOne("UniversityHelper.MapService.Models.Db.DbPoint", "FirstPoint")
-                        .WithOne()
-                        .HasForeignKey("UniversityHelper.MapService.Models.Db.DbRelation", "FirstPointId")
+                        .WithMany()
+                        .HasForeignKey("FirstPointId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("UniversityHelper.MapService.Models.Db.DbPoint", "SecondPoint")
-                        .WithOne()
-                        .HasForeignKey("UniversityHelper.MapService.Models.Db.DbRelation", "SecondPointId")
+                        .WithMany()
+                        .HasForeignKey("SecondPointId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

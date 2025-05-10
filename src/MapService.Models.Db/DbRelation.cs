@@ -35,14 +35,12 @@ public class DbRelationConfiguration : IEntityTypeConfiguration<DbRelation>
 
     builder
         .HasOne(ars => ars.FirstPoint)
-        .WithOne()
-        .HasForeignKey<DbRelation>(ars => ars.FirstPointId)
+        .WithMany()
         .OnDelete(DeleteBehavior.Restrict);
 
     builder
         .HasOne(ars => ars.SecondPoint)
-        .WithOne()
-        .HasForeignKey<DbRelation>(ars => ars.SecondPointId)
+        .WithMany()
         .OnDelete(DeleteBehavior.Restrict);
   }
 }

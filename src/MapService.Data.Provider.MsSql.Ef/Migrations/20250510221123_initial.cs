@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,7 +52,11 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,6 +71,7 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LabelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PointId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -92,12 +97,12 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PointId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrdinalNumber = table.Column<int>(type: "int", nullable: false),
-                    PointId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    OrdinalNumber = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -168,6 +173,9 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PointTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Association = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -212,12 +220,15 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PointTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    X1 = table.Column<float>(type: "real", nullable: false),
-                    Y1 = table.Column<float>(type: "real", nullable: false),
-                    Z1 = table.Column<float>(type: "real", nullable: false),
-                    X2 = table.Column<float>(type: "real", nullable: false),
-                    Y2 = table.Column<float>(type: "real", nullable: false),
-                    Z2 = table.Column<float>(type: "real", nullable: false)
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    XMin = table.Column<float>(type: "real", nullable: false),
+                    YMin = table.Column<float>(type: "real", nullable: false),
+                    ZMin = table.Column<float>(type: "real", nullable: false),
+                    XMax = table.Column<float>(type: "real", nullable: false),
+                    YMax = table.Column<float>(type: "real", nullable: false),
+                    ZMax = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,14 +289,12 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Relations_FirstPointId",
                 table: "Relations",
-                column: "FirstPointId",
-                unique: true);
+                column: "FirstPointId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Relations_SecondPointId",
                 table: "Relations",
-                column: "SecondPointId",
-                unique: true);
+                column: "SecondPointId");
         }
 
         /// <inheritdoc />

@@ -35,14 +35,14 @@ public class BuildRelationCommand : IBuildRelationCommand
   public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(BuildRelationFilter filter)
   {
     // Проверка прав доступа
-    if (!await _accessValidator.IsAdminAsync() && filter.Locale == null)
-    {
-      return new OperationResultResponse<List<PointInfo>>
-      {
-        Body = null,
-        Errors = new List<string> { "Locale is required for non-admin users." }
-      };
-    }
+    //if (!await _accessValidator.IsAdminAsync() && filter.Locale == null)
+    //{
+    //  return new OperationResultResponse<List<PointInfo>>
+    //  {
+    //    Body = null,
+    //    Errors = new List<string> { "Locale is required for non-admin users." }
+    //  };
+    //}
 
     // Получение всех связей между точками
     var relations = await _relationRepository.GetAllAsync();

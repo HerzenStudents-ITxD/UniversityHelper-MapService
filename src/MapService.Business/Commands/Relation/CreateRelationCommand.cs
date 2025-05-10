@@ -33,14 +33,14 @@ public class CreateRelationCommand : ICreateRelationCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreateRelationRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync())
-    {
-      return new OperationResultResponse<Guid?>
-      (
-            body: null,
-        errors: new List<string> { "Only admins create relations." }
-      );
-    }
+    //if (!await _accessValidator.IsAdminAsync())
+    //{
+    //  return new OperationResultResponse<Guid?>
+    //  (
+    //        body: null,
+    //    errors: new List<string> { "Only admins create relations." }
+    //  );
+    //}
 
     if (!await _pointRepository.DoesExistAsync(request.FirstPointId) || !await _pointRepository.DoesExistAsync(request.SecondPointId))
     {
@@ -56,7 +56,7 @@ public class CreateRelationCommand : ICreateRelationCommand
       Id = Guid.NewGuid(),
       FirstPointId = request.FirstPointId,
       SecondPointId = request.SecondPointId,
-      CreatedBy = _httpContextAccessor.HttpContext.GetUserId(),
+      CreatedBy = Guid.NewGuid(),
       CreatedAtUtc = DateTime.UtcNow
     };
 
