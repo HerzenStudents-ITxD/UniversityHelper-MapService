@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Route.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Relation.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 
-namespace UniversityHelper.MapService.Business.Commands.Route;
+namespace UniversityHelper.MapService.Business.Commands.Relation;
 
 public class DeleteRelationCommand : IDeleteRelationCommand
 {

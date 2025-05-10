@@ -6,7 +6,7 @@ using UniversityHelper.MapService.Models.Dto.Models;
 namespace UniversityHelper.MapService.Mappers.Models.Interfaces;
 
 [AutoInject]
-public interface IRouteInfoMapper
+public interface IRelationInfoMapper
 {
   List<PointInfo> Map(List<DbPoint> dbPoints);
 }

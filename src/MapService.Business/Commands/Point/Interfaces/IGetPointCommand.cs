@@ -4,7 +4,7 @@ using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+namespace UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 
 [AutoInject]
 public interface IGetPointCommand

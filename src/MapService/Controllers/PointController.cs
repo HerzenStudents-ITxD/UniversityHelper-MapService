@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;

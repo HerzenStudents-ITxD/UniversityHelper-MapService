@@ -4,23 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Route.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Relation.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Mappers.Models.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace UniversityHelper.MapService.Business.Commands.Route;
+namespace UniversityHelper.MapService.Business.Commands.Relation;
 
-public class BuildRouteCommand : IBuildRouteCommand
+public class BuildRelationCommand : IBuildRelationCommand
 {
   private readonly IRelationRepository _relationRepository;
   private readonly IPointRepository _pointRepository;
   private readonly IPointInfoMapper _pointInfoMapper;
   private readonly IAccessValidator _accessValidator;
 
-  public BuildRouteCommand(
+  public BuildRelationCommand(
       IRelationRepository relationRepository,
       IPointRepository pointRepository,
       IPointInfoMapper pointInfoMapper,
@@ -32,7 +32,7 @@ public class BuildRouteCommand : IBuildRouteCommand
     _accessValidator = accessValidator;
   }
 
-  public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(BuildRouteFilter filter)
+  public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(BuildRelationFilter filter)
   {
     // Проверка прав доступа
     if (!await _accessValidator.IsAdminAsync() && filter.Locale == null)

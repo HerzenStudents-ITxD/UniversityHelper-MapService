@@ -7,7 +7,7 @@ using UniversityHelper.MapService.Models.Dto.Models;
 
 namespace UniversityHelper.MapService.Mappers.Models;
 
-public class RouteInfoMapper : IRouteInfoMapper
+public class RelationInfoMapper : IRelationInfoMapper
 {
   public List<PointInfo> Map(List<DbPoint> dbPoints)
   {

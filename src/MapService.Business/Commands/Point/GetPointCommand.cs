@@ -1,13 +1,13 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Mappers.Models.Interfaces;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace UniversityHelper.MapService.Business.Commands.Location;
+namespace UniversityHelper.MapService.Business.Commands.Point;
 
 public class GetPointCommand : IGetPointCommand
 {

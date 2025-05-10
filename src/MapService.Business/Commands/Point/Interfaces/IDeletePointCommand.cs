@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UniversityHelper.Core.Attributes;
 using UniversityHelper.Core.Responses;
 
-namespace UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+namespace UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 
 [AutoInject]
 public interface IDeletePointCommand

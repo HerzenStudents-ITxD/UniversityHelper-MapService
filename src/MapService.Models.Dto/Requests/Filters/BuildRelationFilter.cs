@@ -2,7 +2,7 @@
 
 namespace UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-public record BuildRouteFilter
+public record BuildRelationFilter
 {
   public Guid StartPointId { get; set; }
   public Guid EndPointId { get; set; }

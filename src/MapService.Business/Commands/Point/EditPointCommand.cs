@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Extensions;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Requests;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace UniversityHelper.MapService.Business.Commands.Location;
+namespace UniversityHelper.MapService.Business.Commands.Point;
 
 public class EditPointCommand : IEditPointCommand
 {

@@ -4,7 +4,7 @@ using UniversityHelper.Core.Attributes;
 using UniversityHelper.Core.Responses;
 using UniversityHelper.MapService.Models.Dto.Requests;
 
-namespace UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+namespace UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 
 [AutoInject]
 public interface IEditPointCommand

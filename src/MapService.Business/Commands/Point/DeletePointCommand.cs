@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using UniversityHelper.Core.BrokerSupport.AccessValidatorEngine.Interfaces;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Location.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Point.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 
-namespace UniversityHelper.MapService.Business.Commands.Location;
+namespace UniversityHelper.MapService.Business.Commands.Point;
 
 public class DeletePointCommand : IDeletePointCommand
 {

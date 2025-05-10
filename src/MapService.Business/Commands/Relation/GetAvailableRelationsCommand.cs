@@ -3,32 +3,32 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using UniversityHelper.Core.Responses;
-using UniversityHelper.MapService.Business.Commands.Route.Interfaces;
+using UniversityHelper.MapService.Business.Commands.Relation.Interfaces;
 using UniversityHelper.MapService.Data.Interfaces;
 using UniversityHelper.MapService.Mappers.Models.Interfaces;
 using UniversityHelper.MapService.Models.Db;
 using UniversityHelper.MapService.Models.Dto.Models;
 using UniversityHelper.MapService.Models.Dto.Requests.Filters;
 
-namespace UniversityHelper.MapService.Business.Commands.Route;
+namespace UniversityHelper.MapService.Business.Commands.Relation;
 
-public class GetAvailableRoutesCommand : IGetAvailableRoutesCommand
+public class GetAvailableRelationsCommand : IGetAvailableRelationsCommand
 {
   private readonly IRelationRepository _relationRepository;
   private readonly IPointRepository _pointRepository;
-  private readonly IRouteInfoMapper _mapper;
+  private readonly IRelationInfoMapper _mapper;
 
-  public GetAvailableRoutesCommand(
+  public GetAvailableRelationsCommand(
       IRelationRepository relationRepository,
       IPointRepository pointRepository,
-      IRouteInfoMapper mapper)
+      IRelationInfoMapper mapper)
   {
     _relationRepository = relationRepository;
     _pointRepository = pointRepository;
     _mapper = mapper;
   }
 
-  public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(AvailableRoutesFilter filter)
+  public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(AvailableRelationsFilter filter)
   {
     if (!await _pointRepository.DoesExistAsync(filter.PointId))
     {
