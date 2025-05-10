@@ -75,7 +75,7 @@ public class PointRepository : IPointRepository
         .Include(p => p.Associations)
         .AsQueryable();
 
-    if (!filter.IncludeDeactivated)
+    if (!filter.IncludeDeactivated.GetValueOrDefault(false))
     {
       query = query.Where(p => p.IsActive);
     }
@@ -97,10 +97,13 @@ public class PointRepository : IPointRepository
       query = query.Where(p => p.PointTypes.Any(pt => pt.PointTypeId == Guid.Parse(filter.TypeId)));
     }
 
-    return await query
-        .Skip((filter.Page - 1) * filter.PageSize)
-        .Take(filter.PageSize)
-        .ToListAsync();
+    if (filter.Page.HasValue && filter.PageSize.HasValue)
+    {
+      query = query
+          .Skip((filter.Page.Value - 1) * filter.PageSize.Value)
+          .Take(filter.PageSize.Value);
+    }
+    return await query.ToListAsync();
   }
 
   public async Task UpdateAsync(DbPoint dbPoint)

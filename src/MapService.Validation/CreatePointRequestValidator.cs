@@ -13,17 +13,17 @@ public class CreatePointRequestValidator : AbstractValidator<CreatePointRequest>
     RuleFor(x => x.Name)
         .NotNull()
         .Must(HaveRequiredLocales)
-        .WithMessage("Name must contain 'ru', 'en', and 'zh' locales.");
+        .WithMessage("Name must contain 'ru', 'en', and 'cn' locales.");
 
     RuleFor(x => x.Description)
         .Must(HaveRequiredLocales)
         .When(x => x.Description != null)
-        .WithMessage("Description must contain 'ru', 'en', and 'zh' locales if provided.");
+        .WithMessage("Description must contain 'ru', 'en', and 'cn' locales if provided.");
 
     RuleFor(x => x.Fact)
         .Must(HaveRequiredLocales)
         .When(x => x.Fact != null)
-        .WithMessage("Fact must contain 'ru', 'en', and 'zh' locales if provided.");
+        .WithMessage("Fact must contain 'ru', 'en', and 'cn' locales if provided.");
 
     RuleFor(x => x.X).NotNull().WithMessage("X coordinate is required.");
     RuleFor(x => x.Y).NotNull().WithMessage("Y coordinate is required.");
@@ -41,6 +41,6 @@ public class CreatePointRequestValidator : AbstractValidator<CreatePointRequest>
 
   private bool HaveRequiredLocales(Dictionary<string, string> dict)
   {
-    return dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("zh");
+    return dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("cn");
   }
 }

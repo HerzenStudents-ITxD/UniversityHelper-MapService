@@ -13,17 +13,17 @@ public class EditPointRequestValidator : AbstractValidator<EditPointRequest>, IE
     RuleFor(x => x.Name)
         .Must(HaveRequiredLocales)
         .When(x => x.Name != null)
-        .WithMessage("Name must contain 'ru', 'en', and 'zh' locales if provided.");
+        .WithMessage("Name must contain 'ru', 'en', and 'cn' locales if provided.");
 
     RuleFor(x => x.Description)
         .Must(HaveRequiredLocales)
         .When(x => x.Description != null)
-        .WithMessage("Description must contain 'ru', 'en', and 'zh' locales if provided.");
+        .WithMessage("Description must contain 'ru', 'en', and 'cn' locales if provided.");
 
     RuleFor(x => x.Fact)
         .Must(HaveRequiredLocales)
         .When(x => x.Fact != null)
-        .WithMessage("Fact must contain 'ru', 'en', and 'zh' locales if provided.");
+        .WithMessage("Fact must contain 'ru', 'en', and 'cn' locales if provided.");
 
     RuleForEach(x => x.Photos)
         .SetValidator(new CreatePointPhotoRequestValidator())
@@ -36,5 +36,5 @@ public class EditPointRequestValidator : AbstractValidator<EditPointRequest>, IE
   }
 
   private bool HaveRequiredLocales(Dictionary<string, string> dict)
-      => dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("zh");
+      => dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("cn");
 }

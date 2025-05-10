@@ -13,7 +13,7 @@ public class EditPointLabelRequestValidator : AbstractValidator<EditPointLabelRe
     RuleFor(x => x.Name)
         .Must(HaveRequiredLocales)
         .When(x => x.Name != null)
-        .WithMessage("Name must contain 'ru', 'en', and 'zh' locales if provided.");
+        .WithMessage("Name must contain 'ru', 'en', and 'cn' locales if provided.");
   }
 
   public async Task<ValidationResult> ValidateAsync(EditPointLabelRequest request)
@@ -23,6 +23,6 @@ public class EditPointLabelRequestValidator : AbstractValidator<EditPointLabelRe
 
   private bool HaveRequiredLocales(Dictionary<string, string> dict)
   {
-    return dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("zh");
+    return dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("cn");
   }
 }
