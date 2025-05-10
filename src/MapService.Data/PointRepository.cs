@@ -87,7 +87,7 @@ public class PointRepository : IPointRepository
                            || EF.Functions.Contains(p.Description, $"\"{filter.Locale}\""));
     }
 
-    if (filter.CreatedBy != Guid.Empty)
+    if (filter.CreatedBy != null)
     {
       query = query.Where(p => p.CreatedBy == filter.CreatedBy);
     }
