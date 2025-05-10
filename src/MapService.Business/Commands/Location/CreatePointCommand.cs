@@ -32,19 +32,19 @@ public class CreatePointCommand : ICreatePointCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreatePointRequest request)
   {
-    if (!await _accessValidator.IsAdminAsync())
-    {
-      return new OperationResultResponse<Guid?>
-      (
-            body: null,
-        errors: new List<string> { "Only admins can create points." }
-      );
-    }
+    //if (!await _accessValidator.IsAdminAsync())
+    //{
+    //  return new OperationResultResponse<Guid?>
+    //  (
+    //        body: null,
+    //    errors: new List<string> { "Only admins can create points." }
+    //  );
+    //}
 
     var point = new DbPoint
     {
       Id = Guid.NewGuid(),
-      CreatedBy = _httpContextAccessor.HttpContext.GetUserId(),
+      CreatedBy = Guid.NewGuid(),
       CreatedAtUtc = DateTime.UtcNow,
       IsActive = true,
       Name = JsonSerializer.Serialize(request.Name),
@@ -58,7 +58,7 @@ public class CreatePointCommand : ICreatePointCommand
       {
         Id = Guid.NewGuid(),
         LabelId = id,
-        CreatedBy = _httpContextAccessor.HttpContext.GetUserId(),
+        CreatedBy = Guid.NewGuid(),
         CreatedAtUtc = DateTime.UtcNow,
         IsActive = true
       }).ToList() ?? new List<DbPointLabel>(),
@@ -67,7 +67,7 @@ public class CreatePointCommand : ICreatePointCommand
         Id = Guid.NewGuid(),
         Content = p.Content,
         OrdinalNumber = p.OrdinalNumber,
-        CreatedBy = _httpContextAccessor.HttpContext.GetUserId(),
+        CreatedBy = Guid.NewGuid(),
         CreatedAtUtc = DateTime.UtcNow,
         IsActive = true
       }).ToList() ?? new List<DbPointPhoto>(),

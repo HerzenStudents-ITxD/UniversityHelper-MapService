@@ -28,15 +28,15 @@ public class EditPointTypeRectangularParallepipedCommand : IEditPointTypeRectang
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid parallelepipedId, EditPointTypeRectangularParallepipedRequest request)
   {
-    var validationResult = await _validator.ValidateAsync(request);
-    if (!validationResult.IsValid)
-    {
-      return new OperationResultResponse<bool>
-      (
-            body: false,
-            errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
-      );
-    }
+    // var validationResult = await _validator.ValidateAsync(request);
+    // if (!validationResult.IsValid)
+    // {
+    //   return new OperationResultResponse<bool>
+    //   (
+    //         body: false,
+    //         errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+    //   );
+    // }
 
     if (!await _accessValidator.IsAdminAsync())
     {
