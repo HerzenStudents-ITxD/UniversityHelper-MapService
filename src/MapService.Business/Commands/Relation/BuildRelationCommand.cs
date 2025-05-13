@@ -34,15 +34,15 @@ public class BuildRelationCommand : IBuildRelationCommand
 
   public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(BuildRelationFilter filter)
   {
-    // Проверка прав доступа
-    //if (!await _accessValidator.IsAdminAsync() && filter.Locale == null)
-    //{
-    //  return new OperationResultResponse<List<PointInfo>>
-    //  {
-    //    Body = null,
-    //    Errors = new List<string> { "Locale is required for non-admin users." }
-    //  };
-    //}
+    //Проверка прав доступа
+    if (!await _accessValidator.IsAdminAsync() && filter.Locale == null)
+    {
+      return new OperationResultResponse<List<PointInfo>>
+      {
+        Body = null,
+        Errors = new List<string> { "Locale is required for non-admin users." }
+      };
+    }
 
     // Получение всех связей между точками
     var relations = await _relationRepository.GetAllAsync();
@@ -63,14 +63,21 @@ public class BuildRelationCommand : IBuildRelationCommand
       var point1 = await _pointRepository.GetAsync(new GetPointFilter { PointId = relation.FirstPointId });
       var point2 = await _pointRepository.GetAsync(new GetPointFilter { PointId = relation.SecondPointId });
       if (point1 == null || point2 == null)
+      {
         continue;
+      }
 
       float distance = CalculateDistance(point1, point2);
 
       if (!graph.ContainsKey(relation.FirstPointId))
+      {
         graph[relation.FirstPointId] = new List<(Guid, float)>();
+      }
+
       if (!graph.ContainsKey(relation.SecondPointId))
+      {
         graph[relation.SecondPointId] = new List<(Guid, float)>();
+      }
 
       graph[relation.FirstPointId].Add((relation.SecondPointId, distance));
       graph[relation.SecondPointId].Add((relation.FirstPointId, distance));
@@ -88,20 +95,28 @@ public class BuildRelationCommand : IBuildRelationCommand
       priorityQueue.Remove(priorityQueue.Min);
 
       if (visited.Contains(currentNode))
+      {
         continue;
+      }
 
       visited.Add(currentNode);
 
       if (currentNode == filter.EndPointId)
+      {
         break;
+      }
 
       if (!graph.ContainsKey(currentNode))
+      {
         continue;
+      }
 
       foreach (var (neighbor, weight) in graph[currentNode])
       {
         if (visited.Contains(neighbor))
+        {
           continue;
+        }
 
         float newDistance = currentDistance + weight;
         if (!distances.ContainsKey(neighbor) || newDistance < distances[neighbor])

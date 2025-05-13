@@ -13,7 +13,7 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 {
     [DbContext(typeof(MapServiceDbContext))]
     [Migration("20250510221123_initial")]
-    partial class initial
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

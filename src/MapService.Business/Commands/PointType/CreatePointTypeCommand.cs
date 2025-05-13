@@ -35,15 +35,15 @@ public class CreatePointTypeCommand : ICreatePointTypeCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreatePointTypeRequest request)
   {
-    // var validationResult = await _validator.ValidateAsync(request);
-    // if (!validationResult.IsValid)
-    // {
-    //   return new OperationResultResponse<Guid?>
-    //   (
-    //         body: null,
-    //     errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
-    //   );
-    // }
+    var validationResult = await _validator.ValidateAsync(request);
+    if (!validationResult.IsValid)
+    {
+      return new OperationResultResponse<Guid?>
+      (
+            body: null,
+        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+      );
+    }
 
     if (!await _accessValidator.IsAdminAsync())
     {
@@ -54,14 +54,14 @@ public class CreatePointTypeCommand : ICreatePointTypeCommand
       );
     }
 
-    // if (await _repository.DoesExistByIconAsync(request.Icon))
-    // {
-    //   return new OperationResultResponse<Guid?>
-    //   (
-    //         body: null,
-    //     errors: new List<string> { "Icon already exists." }
-    //   );
-    // }
+    if (await _repository.DoesExistByIconAsync(request.Icon))
+    {
+      return new OperationResultResponse<Guid?>
+      (
+            body: null,
+        errors: new List<string> { "Icon already exists." }
+      );
+    }
 
     var pointType = new DbPointType
     {

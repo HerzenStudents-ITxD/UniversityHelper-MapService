@@ -30,14 +30,14 @@ public class FindPointsCommand : IFindPointsCommand
 
   public async Task<OperationResultResponse<List<PointInfo>>> ExecuteAsync(FindPointsFilter filter)
   {
-    //if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
-    //{
-    //  return new OperationResultResponse<List<PointInfo>>
-    //  (
-    //        body: null,
-    //    errors: new List<string> { "Only admins can include deactivated points." }
-    //  );
-    //}
+    if (!await _accessValidator.IsAdminAsync() && filter.IncludeDeactivated)
+    {
+      return new OperationResultResponse<List<PointInfo>>
+      (
+            body: null,
+        errors: new List<string> { "Only admins can include deactivated points." }
+      );
+    }
 
     var points = await _repository.FindAllAsync(filter);
     return new OperationResultResponse<List<PointInfo>>

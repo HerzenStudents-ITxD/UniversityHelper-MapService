@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text.Json;
@@ -32,19 +33,30 @@ public class CreatePointCommand : ICreatePointCommand
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreatePointRequest request)
   {
-    //if (!await _accessValidator.IsAdminAsync())
-    //{
-    //  return new OperationResultResponse<Guid?>
-    //  (
-    //        body: null,
-    //    errors: new List<string> { "Only admins can create points." }
-    //  );
-    //}
+    if (!await _accessValidator.IsAdminAsync())
+    {
+      return new OperationResultResponse<Guid?>
+      (
+            body: null,
+        errors: new List<string> { "Only admins can create points." }
+      );
+    }
 
+    if (!string.IsNullOrEmpty(request.Icon)
+    && !IsValidBase64(request.Icon))
+    {
+      return new OperationResultResponse<Guid?>(
+          body: null,
+          errors: new List<string> { "Invalid Base64 format for Icon." }
+      );
+    }
+
+
+    var userId = _httpContextAccessor.HttpContext.GetUserId();
     var point = new DbPoint
     {
       Id = Guid.NewGuid(),
-      CreatedBy = Guid.NewGuid(),
+      CreatedBy = userId,
       CreatedAtUtc = DateTime.UtcNow,
       IsActive = true,
       Name = JsonSerializer.Serialize(request.Name),
@@ -53,12 +65,12 @@ public class CreatePointCommand : ICreatePointCommand
       X = request.X,
       Y = request.Y,
       Z = request.Z,
-      Icon = request.Icon,
+      Icon = string.IsNullOrEmpty(request.Icon) ? null : request.Icon,
       Labels = request.LabelIds?.Select(id => new DbPointLabel
       {
         Id = Guid.NewGuid(),
         LabelId = id,
-        CreatedBy = Guid.NewGuid(),
+        CreatedBy = userId,
         CreatedAtUtc = DateTime.UtcNow,
         IsActive = true
       }).ToList() ?? new List<DbPointLabel>(),
@@ -67,7 +79,7 @@ public class CreatePointCommand : ICreatePointCommand
         Id = Guid.NewGuid(),
         Content = p.Content,
         OrdinalNumber = p.OrdinalNumber,
-        CreatedBy = Guid.NewGuid(),
+        CreatedBy = userId,
         CreatedAtUtc = DateTime.UtcNow,
         IsActive = true
       }).ToList() ?? new List<DbPointPhoto>(),
@@ -88,5 +100,21 @@ public class CreatePointCommand : ICreatePointCommand
     {
       Body = point.Id
     };
+  }
+  private bool IsValidBase64(string base64)
+  {
+    if (string.IsNullOrEmpty(base64))
+    {
+      return false;
+    }
+    try
+    {
+      Convert.FromBase64String(base64);
+      return true;
+    }
+    catch
+    {
+      return false;
+    }
   }
 }

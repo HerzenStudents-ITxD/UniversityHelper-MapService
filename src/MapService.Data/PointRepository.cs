@@ -75,7 +75,7 @@ public class PointRepository : IPointRepository
         .Include(p => p.Associations)
         .AsQueryable();
 
-    if (!filter.IncludeDeactivated.GetValueOrDefault(false))
+    if (!filter.IncludeDeactivated)
     {
       query = query.Where(p => p.IsActive);
     }

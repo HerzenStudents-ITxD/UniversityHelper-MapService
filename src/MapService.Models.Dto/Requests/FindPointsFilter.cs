@@ -2,7 +2,7 @@
 
 public record FindPointsFilter
 {
-  public bool? IncludeDeactivated { get; set; } = false;
+  public bool IncludeDeactivated { get; set; } = false;
   public Guid? CreatedBy { get; set; }
   public string? Locale { get; set; }
   public string? TypeId { get; set; }

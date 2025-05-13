@@ -78,11 +78,17 @@ public class EditPointCommand : IEditPointCommand
     }
 
     if (request.Z.HasValue)
-      point.Z = request.Z.Value;
+      {
+            point.Z = request.Z.Value;
+        }
     if (request.Icon != null)
-      point.Icon = request.Icon;
+      {
+            point.Icon = request.Icon;
+        }
     if (request.IsActive.HasValue)
-      point.IsActive = request.IsActive.Value;
+      {
+            point.IsActive = request.IsActive.Value;
+        }
 
     if (request.LabelIds != null)
     {
