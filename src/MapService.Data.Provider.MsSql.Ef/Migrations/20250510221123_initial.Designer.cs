@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityHelper.MapService.Data.Provider.MsSql.Ef;
 
@@ -11,9 +12,11 @@ using UniversityHelper.MapService.Data.Provider.MsSql.Ef;
 namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 {
     [DbContext(typeof(MapServiceDbContext))]
-    partial class MapServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250510221123_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

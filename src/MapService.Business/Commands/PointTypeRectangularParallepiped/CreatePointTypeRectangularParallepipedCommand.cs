@@ -37,15 +37,15 @@ public class CreatePointTypeRectangularParallepipedCommand : ICreatePointTypeRec
 
   public async Task<OperationResultResponse<Guid?>> ExecuteAsync(CreatePointTypeRectangularParallepipedRequest request)
   {
-    var validationResult = await _validator.ValidateAsync(request);
-    if (!validationResult.IsValid)
-    {
-      return new OperationResultResponse<Guid?>
-      (
-            body: null,
-        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
-      );
-    }
+    // var validationResult = await _validator.ValidateAsync(request);
+    // if (!validationResult.IsValid)
+    // {
+    //   return new OperationResultResponse<Guid?>
+    //   (
+    //         body: null,
+    //     errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+    //   );
+    // }
 
     if (!await _accessValidator.IsAdminAsync())
     {

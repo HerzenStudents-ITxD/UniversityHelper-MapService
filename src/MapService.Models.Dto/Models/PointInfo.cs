@@ -9,7 +9,7 @@ public record PointInfo
   public Guid CreatedBy { get; set; }
   public DateTime CreatedAtUtc { get; set; }
   public bool IsActive { get; set; }
-  public Dictionary<string, string> Name { get; set; } // JSON: {"ru": "Точка 1", "en": "Point 1", "zh": "点 1"}
+  public Dictionary<string, string> Name { get; set; } // JSON: {"ru": "Точка 1", "en": "Point 1", "cn": "点 1"}
   public Dictionary<string, string>? Description { get; set; }
   public Dictionary<string, string>? Fact { get; set; }
   public float X { get; set; }

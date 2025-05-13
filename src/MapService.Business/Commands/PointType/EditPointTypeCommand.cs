@@ -30,15 +30,15 @@ public class EditPointTypeCommand : IEditPointTypeCommand
 
   public async Task<OperationResultResponse<bool>> ExecuteAsync(Guid typeId, EditPointTypeRequest request)
   {
-    var validationResult = await _validator.ValidateAsync(request);
-    if (!validationResult.IsValid)
-    {
-      return new OperationResultResponse<bool>
-      (
-            body: false,
-        errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
-      );
-    }
+    // var validationResult = await _validator.ValidateAsync(request);
+    // if (!validationResult.IsValid)
+    // {
+    //   return new OperationResultResponse<bool>
+    //   (
+    //         body: false,
+    //     errors: validationResult.Errors.Select(e => e.ErrorMessage).ToList()
+    //   );
+    // }
 
     if (!await _accessValidator.IsAdminAsync())
     {
@@ -64,18 +64,18 @@ public class EditPointTypeCommand : IEditPointTypeCommand
       pointType.Name = JsonSerializer.Serialize(request.Name);
     }
 
-    if (request.Icon != null)
-    {
-      if (await _repository.DoesExistByIconAsync(request.Icon) && pointType.Icon != request.Icon)
-      {
-        return new OperationResultResponse<bool>
-        (
-            body: false,
-          errors: new List<string> { "Icon already exists." }
-        );
-      }
-      pointType.Icon = request.Icon;
-    }
+    // if (request.Icon != null)
+    // {
+    //   if (await _repository.DoesExistByIconAsync(request.Icon) && pointType.Icon != request.Icon)
+    //   {
+    //     return new OperationResultResponse<bool>
+    //     (
+    //         body: false,
+    //       errors: new List<string> { "Icon already exists." }
+    //     );
+    //   }
+    //   pointType.Icon = request.Icon;
+    // }
 
     if (request.Associations != null)
     {

@@ -13,7 +13,7 @@ public class CreatePointLabelRequestValidator : AbstractValidator<CreatePointLab
     RuleFor(x => x.Name)
         .NotNull()
         .Must(HaveRequiredLocales)
-        .WithMessage("Name must contain 'ru', 'en', and 'zh' locales.");
+        .WithMessage("Name must contain 'ru', 'en', and 'cn' locales.");
   }
 
   public async Task<ValidationResult> ValidateAsync(CreatePointLabelRequest request)
@@ -23,6 +23,6 @@ public class CreatePointLabelRequestValidator : AbstractValidator<CreatePointLab
 
   private bool HaveRequiredLocales(Dictionary<string, string> dict)
   {
-    return dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("zh");
+    return dict != null && dict.ContainsKey("ru") && dict.ContainsKey("en") && dict.ContainsKey("cn");
   }
 }
