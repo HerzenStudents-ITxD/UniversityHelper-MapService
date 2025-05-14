@@ -15,9 +15,9 @@ public class RabbitMqConfig : BaseRabbitMqConfig
 
   //// users
 
-  //[AutoInjectRequest(typeof(IGetUsersDataRequest))]
-  //public string GetUsersDataEndpoint { get; set; }
+  [AutoInjectRequest(typeof(IGetUsersDataRequest))]
+  public string GetUsersDataEndpoint { get; set; }
 
-  //[AutoInjectRequest(typeof(ICheckUsersExistence))]
-  //public string CheckUsersExistenceEndpoint { get; set; }
+  [AutoInjectRequest(typeof(ICheckUsersExistence))]
+  public string CheckUsersExistenceEndpoint { get; set; }
 }
