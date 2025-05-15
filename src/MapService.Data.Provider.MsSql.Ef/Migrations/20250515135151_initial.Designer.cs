@@ -12,8 +12,8 @@ using UniversityHelper.MapService.Data.Provider.MsSql.Ef;
 namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 {
     [DbContext(typeof(MapServiceDbContext))]
-    [Migration("20250510221123_initial")]
-    partial class Initial
+    [Migration("20250515135151_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,6 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Icon")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")

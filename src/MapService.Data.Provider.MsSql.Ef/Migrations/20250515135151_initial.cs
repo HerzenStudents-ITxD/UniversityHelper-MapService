@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,7 +40,7 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
