@@ -42,6 +42,19 @@ public class EditPointCommand : IEditPointCommand
       );
     }
 
+
+    request.Icon = string.IsNullOrWhiteSpace(request.Icon) ? null : request.Icon;
+
+
+    if (request.Icon != null && !IsValidBase64(request.Icon))
+    {
+      return new OperationResultResponse<bool>
+      (
+          body: false,
+          errors: new List<string> { "Invalid Base64 format for Icon." }
+      );
+    }
+
     var point = await _repository.GetAsync(new GetPointFilter { PointId = pointId });
     if (point == null)
     {
@@ -80,11 +93,11 @@ public class EditPointCommand : IEditPointCommand
     if (request.Z.HasValue)
       {
             point.Z = request.Z.Value;
-        }
-    if (request.Icon != null)
-      {
-            point.Icon = request.Icon;
-        }
+    }
+
+
+    point.Icon = request.Icon;
+
     if (request.IsActive.HasValue)
       {
             point.IsActive = request.IsActive.Value;
@@ -138,5 +151,20 @@ public class EditPointCommand : IEditPointCommand
     {
       Body = true
     };
+  }
+
+  private bool IsValidBase64(string base64)
+  {
+    if (string.IsNullOrEmpty(base64))
+      return false;
+    try
+    {
+      Convert.FromBase64String(base64);
+      return true;
+    }
+    catch
+    {
+      return false;
+    }
   }
 }

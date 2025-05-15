@@ -15,7 +15,7 @@ public record PointInfo
   public float X { get; set; }
   public float Y { get; set; }
   public float Z { get; set; }
-  public string Icon { get; set; }
+  public string? Icon { get; set; }
   public List<PointLabelInfo> Labels { get; set; }
   public List<PointPhotoInfo> Photos { get; set; }
   public List<PointTypeInfo> PointTypes { get; set; }

@@ -24,7 +24,7 @@ public class DbPoint
   public string Name { get; set; }
   public string? Fact { get; set; }
   public string? Description { get; set; }
-  public string Icon { get; set; }
+  public string? Icon { get; set; }
   [IgnoreParse]
   public ICollection<DbRelation> Relations { get; set; }
   [IgnoreParse]

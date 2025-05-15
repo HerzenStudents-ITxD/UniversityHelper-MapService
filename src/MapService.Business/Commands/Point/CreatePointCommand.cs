@@ -42,6 +42,8 @@ public class CreatePointCommand : ICreatePointCommand
       );
     }
 
+    request.Icon = string.IsNullOrWhiteSpace(request.Icon) ? null : request.Icon;
+
     if (!string.IsNullOrEmpty(request.Icon)
     && !IsValidBase64(request.Icon))
     {
@@ -65,7 +67,7 @@ public class CreatePointCommand : ICreatePointCommand
       X = request.X,
       Y = request.Y,
       Z = request.Z,
-      Icon = string.IsNullOrEmpty(request.Icon) ? null : request.Icon,
+      Icon = request.Icon,
       Labels = request.LabelIds?.Select(id => new DbPointLabel
       {
         Id = Guid.NewGuid(),

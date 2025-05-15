@@ -65,7 +65,6 @@ namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Icon")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")

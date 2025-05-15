@@ -28,7 +28,6 @@ public class CreatePointRequestValidator : AbstractValidator<CreatePointRequest>
     RuleFor(x => x.X).NotNull().WithMessage("X coordinate is required.");
     RuleFor(x => x.Y).NotNull().WithMessage("Y coordinate is required.");
     RuleFor(x => x.Z).NotNull().WithMessage("Z coordinate is required.");
-    RuleFor(x => x.Icon).NotEmpty().WithMessage("Icon is required.");
 
     RuleForEach(x => x.Photos)
         .SetValidator(new CreatePointPhotoRequestValidator());
