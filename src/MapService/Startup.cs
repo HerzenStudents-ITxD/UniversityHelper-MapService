@@ -60,6 +60,7 @@ public class Startup : BaseApiInfo
 
   public void ConfigureServices(IServiceCollection services)
   {
+
     services.AddCors(options =>
     {
       options.AddPolicy(
@@ -67,15 +68,12 @@ public class Startup : BaseApiInfo
           builder =>
           {
             builder
-              .WithOrigins(
-                "http://localhost:5173",
-                "http://localhost:4200",
-                "http://localhost:4500")
+              .AllowAnyOrigin()
               .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowAnyMethod();
           });
     });
+
 
     services.Configure<TokenConfiguration>(Configuration.GetSection("CheckTokenMiddleware"));
     services.Configure<BaseRabbitMqConfig>(Configuration.GetSection(BaseRabbitMqConfig.SectionName));
