@@ -16,7 +16,6 @@ public record CreatePointRequest
   public float Y { get; set; }
   [Required]
   public float Z { get; set; }
-  [Required]
   public string? Icon { get; set; }
   public List<Guid>? LabelIds { get; set; }
   public List<CreatePointPhotoRequest>? Photos { get; set; }

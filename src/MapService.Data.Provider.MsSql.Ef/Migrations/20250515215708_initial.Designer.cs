@@ -12,7 +12,7 @@ using UniversityHelper.MapService.Data.Provider.MsSql.Ef;
 namespace UniversityHelper.MapService.Data.Provider.MsSql.Ef.Migrations
 {
     [DbContext(typeof(MapServiceDbContext))]
-    [Migration("20250515135151_initial")]
+    [Migration("20250515215708_initial")]
     partial class initial
     {
         /// <inheritdoc />
